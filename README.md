@@ -452,8 +452,5 @@ git clone <repository-url>
 
 ---
 
-**StudyBuddy** - *Smart Learning, Smarter Campus Management*
-
-*Empowering education through innovative technology solutions*
 
 </div>
