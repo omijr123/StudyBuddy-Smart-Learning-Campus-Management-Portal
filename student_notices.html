@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyBuddy – Notices</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --primary: #7b68ee;
+      --glass-bg: rgba(255, 255, 255, 0.14);
+      --blur: 16px;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    #bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+    }
+
+    #bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.55), rgba(0,0,0,.25));
+      z-index: -2;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 4px 0 18px rgba(0,0,0,.25);
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+    }
+
+    .profile-box {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      padding: 18px 22px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .profile-box:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .profile-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-right: 12px;
+    }
+
+    .sidebar-title {
+      color: #fff;
+      text-align: center;
+      margin: 16px 0;
+      font-size: 22px;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 14px 26px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: .25s;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-left-color: #ffd700;
+    }
+
+    .nav-link.active {
+      background: rgba(255, 255, 255, 0.25);
+      border-left-color: #fff;
+    }
+
+    .content {
+      margin-left: 250px;
+      height: 100%;
+      padding: 40px 50px 60px;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    #noticesContainer .notice {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      color: #fff;
+      border-left: 5px solid var(--primary);
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .notice:hover {
+      transform: translateY(-2px);
+    }
+
+    .notice-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .notice-details {
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    .delete-btn {
+      margin-top: 12px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <video id="bg-video" src="st.mp4" autoplay muted loop playsinline></video>
+  <div id="bg-overlay"></div>
+
+  <div class="sidebar">
+    <div class="profile-box" onclick="location='student_profile.html'">
+      <img src="profile.jpg" alt="Profile" class="profile-img" id="profileImage">
+      <div>
+        <strong id="studentName">John Doe</strong><br>
+        <span id="studentID">ID: STU12345</span>
+      </div>
+    </div>
+
+    <h2 class="sidebar-title">Student Panel</h2>
+   <ul class="nav-list">
+      
+      <li><a href="student_dashboard.html"       class="nav-link active">Dashboard</a></li>
+      <li><a href="student_courses.html"         class="nav-link">My Courses</a></li>
+      <li><a href="student_course_contents.html" class="nav-link">Course Contents</a></li>
+      <li><a href="student_stationary.html"      class="nav-link">Stationary Shop</a></li>
+      <li><a href="student_group_chat.html"      class="nav-link">Group Chat</a></li>
+      <li><a href="student_notices.html"         class="nav-link">Notices</a></li>
+      <li><a href="student_stationary_purchase.html" class="nav-link">Purchased Items</a></li>
+      <li><a href="student_exam.html"            class="nav-link">Give Exam</a></li>
+      <li><a href="media.html"                   class="nav-link">Anonymous Wall</a></li>
+      <li><a href="student_login.html"           class="nav-link" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>Notices</h1>
+    <div id="noticesContainer">
+      <p>Loading notices...</p>
+    </div>
+  </div>
+
+  <script>
+    const student = JSON.parse(localStorage.getItem('student'));
+    if (!student) {
+      alert("You must log in first.");
+      location = 'student_login.html';
+    } else {
+      studentName.textContent = student.name;
+      studentID.textContent = "ID: " + student.id;
+      profileImage.src = student.profile_image?.startsWith('uploads/')
+        ? 'http://localhost:3000/' + student.profile_image
+        : (student.profile_image || 'profile.jpg');
+    }
+
+    function logout() {
+      localStorage.removeItem('student');
+      location = 'student_login.html';
+    }
+
+    fetch('http://localhost:3000/get-notices')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('noticesContainer');
+        container.innerHTML = '';
+        if (!data.length) {
+          container.innerHTML = '<p style="color:white">No notices available.</p>';
+        } else {
+          data.forEach(notice => {
+            const div = document.createElement('div');
+            div.className = 'notice';
+            div.innerHTML = `
+              <div class="notice-title">${notice.title}</div>
+              <div class="notice-details">${notice.details}</div>
+              <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+            `;
+            container.appendChild(div);
+          });
+        }
+      })
+      .catch(err => {
+        console.error('Error loading notices:', err);
+        document.getElementById('noticesContainer').innerHTML = '<p style="color:white">Error loading notices.</p>';
+      });
+  </script>
+</body>
+</html>

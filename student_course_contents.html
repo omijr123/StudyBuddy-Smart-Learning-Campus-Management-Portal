@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyBuddy – Course Contents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root {
+      --primary: #7b68ee;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --blur: 16px;
+    }
+    html,body {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      overflow: hidden; 
+      color: #fff;
+    }
+
+    /* Background Video + Overlay + Watermark */
+    #bg-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -3;
+    }
+    #bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.6), rgba(0,0,0,.3));
+      z-index: -2;
+    }
+    .watermark {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-25deg);
+      font-size: 11vw;
+      font-weight: 900;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.25);
+      padding-top: 20px;
+    }
+
+    .profile-box {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+    }
+    .profile-box:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    .profile-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      margin-right: 10px;
+    }
+    .sidebar-title {
+      color: white;
+      text-align: center;
+      margin: 15px 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+    }
+    .nav-link {
+      display: block;
+      padding: 14px 26px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: 0.3s;
+    }
+    .nav-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-left-color: gold;
+    }
+    .nav-link.active {
+      background: rgba(255,255,255,0.2);
+      border-left-color: white;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 40px 50px 60px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .balance-box {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      padding: 12px 24px;
+      border-radius: 14px;
+      color: lightgreen;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      padding: 20px;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    iframe, video {
+      width: 100%;
+      max-height: 400px;
+      margin-top: 14px;
+      border-radius: 10px;
+    }
+
+    .download {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--primary);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .download:hover {
+      background: #5d50c9;
+    }
+
+    .content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .content::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.25);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<video id="bg-video" src="st.mp4" autoplay muted loop playsinline></video>
+<div id="bg-overlay"></div>
+<div class="watermark">StudyBuddy</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="profile-box" onclick="window.location.href='student_profile.html'">
+    <img src="profile.jpg" alt="Profile" class="profile-img" id="profileImage" />
+    <div>
+      <strong id="studentName">Student Name</strong>
+      <span id="studentID">ID: STU00000</span>
+    </div>
+  </div>
+
+  <h2 class="sidebar-title">Student Panel</h2>
+  <ul class="nav-list">
+    <li><a href="student_dashboard.html"       class="nav-link">Dashboard</a></li>
+    <li><a href="student_courses.html"         class="nav-link">My Courses</a></li>
+    <li><a href="student_course_contents.html" class="nav-link active">Course Contents</a></li>
+    <li><a href="student_stationary.html"      class="nav-link">Stationary Shop</a></li>
+    <li><a href="student_group_chat.html"      class="nav-link">Group Chat</a></li>
+    <li><a href="student_notices.html"         class="nav-link">Notices</a></li>
+    <li><a href="student_stationary_purchase.html" class="nav-link">Purchased Items</a></li>
+    <li><a href="student_exam.html" class="nav-link">Give Exam</a></li>
+    <li><a href="media.html" class="nav-link">Anonymous Wall</a></li>
+    <li><a href="student_login.html" class="nav-link" onclick="logout()">Logout</a></li>
+  </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <div class="balance-box" id="studentBalance">Balance: 0 Tk</div>
+  <h1>My Course Contents</h1>
+  <div id="contentList"></div>
+</div>
+
+<script>
+  const student = JSON.parse(localStorage.getItem('student'));
+  if (!student) {
+    alert("Please login first.");
+    location.href = "student_login.html";
+  } else {
+    document.getElementById('studentName').textContent = student.name;
+    document.getElementById('studentID').textContent = "ID: " + student.id;
+    document.getElementById('studentBalance').textContent = "Balance: " + student.balance + " Tk";
+    const profilePath = student.profile_image || 'profile.jpg';
+    document.getElementById('profileImage').src = profilePath.startsWith('uploads/')
+      ? 'http://localhost:3000/' + profilePath
+      : profilePath;
+  }
+
+  function logout() {
+    localStorage.removeItem('student');
+    window.location.href = 'student_login.html';
+  }
+
+  fetch(`http://localhost:3000/student-contents/${student.id}`)
+    .then(res => res.json())
+    .then(contents => {
+      const container = document.getElementById('contentList');
+      if (!contents || contents.length === 0) {
+        container.innerHTML = "<p>No course contents found.</p>";
+        return;
+      }
+
+      contents.forEach(c => {
+        const isPDF = c.filename.toLowerCase().endsWith('.pdf');
+        const isVideo = c.filename.toLowerCase().endsWith('.mp4');
+        const preview = isPDF
+          ? `<iframe src="http://localhost:3000/${c.filepath}" height="400"></iframe>`
+          : isVideo
+          ? `<video controls src="http://localhost:3000/${c.filepath}"></video>`
+          : '';
+
+        container.innerHTML += `
+          <div class="card">
+            <h3>${c.title}</h3>
+            <p><strong>Course:</strong> ${c.course_name}</p>
+            <p><strong>Uploaded:</strong> ${new Date(c.uploaded_at).toLocaleString()}</p>
+            ${preview}
+            <a class="download" href="http://localhost:3000/${c.filepath}" download="${c.filename}">Download</a>
+          </div>`;
+      });
+    })
+    .catch(err => {
+      document.getElementById('contentList').innerHTML = "<p>Error loading content.</p>";
+      console.error("Error fetching content:", err);
+    });
+</script>
+</body>
+</html>

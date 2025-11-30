@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyBuddy - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Global Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    /* ─── Background Video */
+    #bg-video{
+      position:absolute;top:0;left:0;width:100%;height:100%; 
+      object-fit:cover;z-index:-3;
+    }
+    /* dark overlay for readability */
+    #bg-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.25));
+      z-index:-2;
+    }
+
+    /* ─── Body & Watermark */
+    body{
+      font-family:'Poppins',sans-serif;
+      color:#333;min-height:100vh;position:relative;overflow-x:hidden;
+    }
+    body::before{
+      content:'StudyBuddy';position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%) rotate(-25deg);
+      font-size:100px;font-weight:800;letter-spacing:2px;
+      color:rgba(255,255,255,.05);z-index:-1;pointer-events:none;user-select:none;
+    }
+
+    /* ─── Header */
+    header{
+      background:rgba(48,44,114,.8);color:#fff;
+      padding:18px 30px;display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,.15);
+      box-shadow:0 4px 12px rgba(0,0,0,.2);backdrop-filter:blur(10px)
+    }
+    header h1{font-size:28px;font-weight:700;letter-spacing:1px}
+    nav a{color:#fff;margin-left:25px;text-decoration:none;font-weight:600;transition:.3s}
+    nav a:hover{color:#ffd700;transform:scale(1.05)}
+
+    /* ─── Hero */
+    .hero{
+      text-align:center;padding:100px 20px 80px;color:#fff;
+      background:rgba(255,255,255,.1);border-radius:0 0 50px 50px;
+      backdrop-filter:blur(12px);position:relative;z-index:1
+    }
+    .hero h2{font-size:42px;margin-bottom:14px;font-weight:700;animation:fadeInUp 1s}
+    .hero p{font-size:20px;max-width:650px;margin:auto;animation:fadeInUp 1.2s}
+    .buttons{margin-top:40px}
+    .buttons a{
+      display:inline-block;margin:10px;padding:14px 32px;font-size:16px;font-weight:600;
+      border-radius:50px;text-decoration:none;
+      background:linear-gradient(135deg,#7b68ee,#6a5acd);color:#fff;
+      box-shadow:0 4px 10px rgba(123,104,238,.5);transition:.3s
+    }
+    .buttons a:hover{transform:translateY(-4px);background:linear-gradient(135deg,#6a5acd,#483d8b)}
+
+    /* ─── Features */
+    .features{
+      display:flex;flex-wrap:wrap;justify-content:center;padding:80px 20px;
+      background:rgba(255,255,255,.2);backdrop-filter:blur(10px);
+      border-radius:30px;margin:60px auto;max-width:1200px;position:relative;z-index:1
+    }
+    .feature-box{
+      background:#fff;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.1);
+      margin:20px;padding:25px;width:260px;text-align:center;transition:.3s
+    }
+    .feature-box:hover{transform:translateY(-12px) scale(1.03);background:linear-gradient(to right,mediumslateblue,slateblue);color:#fff}
+    .feature-box img{width:100%;height:160px;object-fit:cover;border-radius:15px;margin-bottom:14px}
+    .feature-box h4{font-size:20px;margin-bottom:10px}
+
+    /* ─── Footer */
+    footer{
+      background:rgba(255,255,255,.9);text-align:center;padding:25px;font-size:15px;
+      color:#444;box-shadow:0 -2px 10px rgba(0,0,0,.1)
+    }
+
+    /* ─── Chatbot */
+    #chatbot-button{
+      position:fixed;bottom:30px;right:30px;
+      width:60px;height:60px;border-radius:50%;
+      background:linear-gradient(135deg,#7b68ee,#483d8b);color:#fff;
+      font-size:28px;line-height:60px;text-align:center;cursor:pointer;
+      box-shadow:0 6px 12px rgba(0,0,0,.4);z-index:1000;transition:transform .3s
+    }
+    #chatbot-button:hover{transform:scale(1.1)}
+    #chatbot-popup{
+      position:fixed;bottom:100px;right:30px;width:320px;height:450px;display:none;
+      flex-direction:column;background:#fff;border-radius:12px;box-shadow:0 0 15px rgba(0,0,0,.3);overflow:hidden;z-index:1000
+    }
+    #chatbot-header{
+      background:mediumslateblue;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:600
+    }
+    #chatbot-header button{background:transparent;color:#fff;border:none;font-size:20px;cursor:pointer}
+    #chatbot-popup iframe{width:100%;height:100%;border:none}
+
+    /* ─── Animations */
+    @keyframes fadeInUp{
+      from{transform:translateY(40px);opacity:0}
+      to{transform:translateY(0);opacity:1}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video & Overlay -->
+  <video id="bg-video" src="home.mp4" autoplay muted loop playsinline></video>
+  <div id="bg-overlay"></div>
+
+  <!-- Header -->
+  <header>
+    <h1>StudyBuddy</h1>
+    <nav>
+      <a href="student_login.html">Login</a>
+      <a href="student_register.html">Register</a>
+      <a href="admin_dashboard.html">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Welcome to StudyBuddy</h2>
+    <p>All-in-One Platform for Smart Learning & Student Collaboration</p>
+    <div class="buttons">
+      <a href="student_register.html">Join Now</a>
+      <a href="view_courses.html">Explore Courses</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-box">
+      <img src="courses.png" alt="Courses">
+      <h4>📘 Courses</h4>
+      <p>Learn from top teachers in an interactive format.</p>
+    </div>
+    <div class="feature-box">
+      <img src="group.png" alt="Group Chat">
+      <h4>🧑‍🤝‍🧑 Group Chat</h4>
+      <p>Chat with peers, classmates, or group members.</p>
+    </div>
+    <div class="feature-box">
+      <img src="resourse.png" alt="Resources">
+      <h4>📁 Resources</h4>
+      <p>Download PDFs, notes, or lecture videos easily.</p>
+    </div>
+    <div class="feature-box">
+      <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Stationery">
+      <h4>🛍️ Stationery</h4>
+      <p>Buy affordable stationery with student discounts.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>&copy; 2025 StudyBuddy. All rights reserved by Ichigo-007.</footer>
+
+  <!-- Chatbot Button & Popup -->
+  <div id="chatbot-button" onclick="toggleChat()">💬</div>
+  <div id="chatbot-popup">
+    <div id="chatbot-header">
+      <span>🤖 ChatBot</span>
+      <button onclick="toggleChat()">×</button>
+    </div>
+    <iframe src="bot.html"></iframe>
+  </div>
+
+  <!-- Toggle Chat Script -->
+  <script>
+    function toggleChat(){
+      const popup=document.getElementById("chatbot-popup");
+      popup.style.display=(popup.style.display==="flex")?"none":"flex";
+    }
+  </script>
+</body>
+</html>

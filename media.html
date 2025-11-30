@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Anonymous Wall – StudyBuddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ───── ROOT & GLOBAL ───── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#7b68ee;
+      --glass-bg:rgba(255,255,255,.14);
+      --blur:16px;
+    }
+    html,body{
+      height:100%;
+      font-family:'Poppins',Arial,sans-serif;
+      overflow-x:hidden;
+      color:#fff;
+    }
+
+    /* ───── BACKGROUND ───── */
+    #bg-video{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      object-fit:cover;z-index:-3;
+    }
+    #overlay{
+      position:fixed;inset:0;
+      background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.25));
+      z-index:-2;
+    }
+    .watermark{
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);
+      font-size:11vw;font-weight:900;letter-spacing:4px;
+      color:rgba(255,255,255,.05);pointer-events:none;user-select:none;z-index:-1;
+    }
+
+    /* ───── LAYOUT ───── */
+    .wrapper{
+      max-width:800px;
+      margin:40px auto;
+      background:var(--glass-bg);
+      backdrop-filter:blur(var(--blur));
+      -webkit-backdrop-filter:blur(var(--blur));
+      padding:40px 36px;
+      border-radius:20px;
+      box-shadow:0 8px 24px rgba(0,0,0,.4);
+    }
+    h1{
+      text-align:center;font-size:32px;margin-bottom:24px;
+      text-shadow:0 2px 6px rgba(0,0,0,.4);
+    }
+    .back-btn{
+      display:inline-block;margin-bottom:22px;padding:10px 18px;
+      background:rgba(255,255,255,.25);border-radius:8px;
+      color:#fff;text-decoration:none;font-weight:600;
+      transition:background .25s;
+    }
+    .back-btn:hover{background:rgba(255,255,255,.35)}
+
+    /* ───── FORM ───── */
+    form input[type=text],
+    form textarea{
+      width:100%;padding:12px 14px;margin:8px 0;
+      background:rgba(255,255,255,.9);color:#000;border:none;
+      border-radius:10px;font-size:15px;
+    }
+    form input[type=file]{margin:8px 0}
+    form button{
+      background:var(--primary);color:#fff;
+      padding:12px 22px;border:none;border-radius:10px;
+      font-weight:700;cursor:pointer;transition:transform .25s;
+    }
+    form button:hover{transform:translateY(-2px)}
+
+    hr{margin:32px 0;border:none;height:1px;background:rgba(255,255,255,.25)}
+
+    /* ───── POST CARD ───── */
+    .post{
+      background:var(--glass-bg);
+      backdrop-filter:blur(var(--blur));
+      padding:20px;border-radius:16px;margin:26px 0;
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+      opacity:0;transform:translateY(40px);
+      animation:fadeUp .7s forwards;
+    }
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+    .post img{max-width:100%;border-radius:10px;margin-top:8px}
+    .time{font-size:.88em;color:#ffd}
+    .comments{background:rgba(255,255,255,.08);padding:10px;border-radius:10px;margin-top:10px}
+    .comments input{background:#fff!important;color:#000;width:auto;padding:6px 8px;border-radius:6px;margin:4px 2px}
+    .comments button{padding:6px 10px;font-size:14px}
+
+    .post button{
+      background:rgba(255,255,255,.25);padding:6px 10px;
+      border:none;border-radius:6px;margin-right:6px;cursor:pointer;
+      color:#fff;font-size:14px;transition:background .2s;
+    }
+    .post button:hover{background:rgba(255,255,255,.4)}
+
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<video id="bg-video" src="test3.mp4" autoplay muted loop playsinline></video>
+<div id="overlay"></div>
+<div class="watermark">StudyBuddy</div>
+
+<!-- Page -->
+<div class="wrapper">
+  <a href="student_dashboard.html" class="back-btn">← Back to Dashboard</a>
+  <h1>✨ Anonymous Wall</h1>
+
+  <!-- Post form -->
+  <form id="postForm">
+    <input id="postName" placeholder="Alias" maxlength="50" required>
+    <textarea id="postContent" rows="3" placeholder="What's on your mind?" required></textarea>
+    <input type="file" id="postImage" accept="image/*">
+    <button type="submit">Post</button>
+  </form>
+
+  <hr>
+  <div id="feed"></div>
+</div>
+
+<script>
+const api='http://localhost:3000';
+const esc = s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ─── Create Post ─── */
+postForm.onsubmit=async e=>{
+  e.preventDefault();
+  const fd=new FormData();
+  fd.append('name',postName.value);
+  fd.append('content',postContent.value);
+  if(postImage.files[0]) fd.append('image',postImage.files[0]);
+
+  const res=await fetch(api+'/post',{method:'POST',body:fd}).then(r=>r.json());
+  alert(`✅ Posted!\n💡 Save this 2-digit code: ${res.delete_code}`);
+  postContent.value='';postImage.value='';
+  loadPosts();
+};
+
+/* ─── Load Posts ─── */
+async function loadPosts(){
+  const posts=await fetch(api+'/posts').then(r=>r.json());
+  feed.innerHTML='';
+  posts.forEach(p=>{
+    feed.insertAdjacentHTML('beforeend',`
+      <div class="post">
+        <p><strong>${esc(p.display_name)}</strong>  <span class="time">${new Date(p.created_at).toLocaleString()}</span></p>
+        <p>${esc(p.content)}</p>
+        ${p.image_path ? `<img src="${api}${p.image_path}" alt="img">` : ''}
+        <p>
+          <button onclick="likePost(${p.id})">❤️ ${p.likes||0}</button>
+          <button onclick="toggleComments(${p.id})">💬 Comments</button>
+          <button onclick="editPost(${p.id})">✏️ Edit</button>
+          <button onclick="deletePost(${p.id})">🗑️ Delete</button>
+          ${p.liker_list ? `<div style="margin-top:6px;font-size:.9em;color:#ddd">Liked by: ${esc(p.liker_list)}</div>` : ''}
+        </p>
+        <div id="comments${p.id}" class="comments" style="display:none"></div>
+      </div>
+    `);
+  });
+}
+loadPosts();
+
+/* ─── Likes ─── */
+async function likePost(id){
+  const liker=prompt('Your name for this like?');if(!liker)return;
+  await fetch(api+'/like',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({post_id:id,liker_name:liker})});
+  loadPosts();
+}
+
+/* ─── Edit / Delete Post ─── */
+async function deletePost(id){
+  const code=prompt('Enter the 2-digit delete code:');if(!code)return;
+  await fetch(`${api}/post/${id}?code=${code}`,{method:'DELETE'});
+  loadPosts();
+}
+async function editPost(id){
+  const code=prompt('Enter 2-digit edit code:');
+  const text=prompt('New content:');
+  if(!code||!text)return;
+  await fetch(`${api}/post/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,new_content:text})});
+  loadPosts();
+}
+
+/* ─── Comments ─── */
+function toggleComments(id){
+  const box=document.getElementById('comments'+id);
+  if(box.style.display==='none'){loadComments(id);box.style.display='block';}
+  else box.style.display='none';
+}
+async function loadComments(id){
+  const c=await fetch(api+'/comments/'+id).then(r=>r.json());
+  const box=document.getElementById('comments'+id);
+  box.innerHTML=c.map(k=>`
+    <p><b>${esc(k.commenter_name)}:</b> ${esc(k.comment)}
+      <button onclick="editComment(${k.id})">✏️</button>
+      <button onclick="deleteComment(${k.id})">🗑️</button>
+    </p>`).join('')+`
+    <input id="cn${id}" placeholder="Name" maxlength="30">
+    <input id="cc${id}" placeholder="Comment…" style="width:55%">
+    <button onclick="addComment(${id})">Send</button>`;
+}
+async function addComment(id){
+  const n=document.getElementById('cn'+id).value.trim();
+  const c=document.getElementById('cc'+id).value.trim();
+  if(!n||!c)return alert('Both name & comment required');
+  const res=await fetch(api+'/comment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({post_id:id,commenter_name:n,comment:c})}).then(r=>r.json());
+  alert(`💬 Comment added!\n💡 Save code: ${res.edit_code}`);
+  loadComments(id);
+}
+async function editComment(id){
+  const code=prompt('2-digit edit code:');
+  const nt=prompt('New comment text:');if(!code||!nt)return;
+  await fetch(`${api}/comment/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,new_text:nt})});
+  loadPosts();
+}
+async function deleteComment(id){
+  const code=prompt('2-digit delete code:');if(!code)return;
+  await fetch(`${api}/comment/${id}?code=${code}`,{method:'DELETE'});
+  loadPosts();
+}
+</script>
+</body>
+</html>

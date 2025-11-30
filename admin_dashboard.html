@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============ ROOT & RESET ============ */
+    :root{
+      --mint:#2ecc71;
+      --mint-dark:#25a35a;
+      --glass-bg:rgba(255,255,255,.14);
+      --blur:16px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Poppins',Arial,sans-serif;overflow:hidden}
+
+    /* ============ BACKGROUND VIDEO & OVERLAY ============ */
+    #bg-video{
+      position:fixed;top:0;left:0;width:100vw;height:100vh;
+      object-fit:cover;z-index:-3
+    }
+    #overlay{
+      position:fixed;inset:0;
+      background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(0,0,0,.3));z-index:-2
+    }
+
+    /* ============ WATERMARK ============ */
+    .watermark{
+      position:fixed;top:50%;left:50%;
+      transform:translate(-50%,-50%) rotate(-20deg);
+      font-size:11vw;font-weight:900;letter-spacing:4px;
+      color:rgba(255,255,255,.05);pointer-events:none;user-select:none;z-index:-1
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar{
+      height:100%;width:250px;position:fixed;top:0;left:0;padding-top:50px;
+      background:var(--glass-bg);
+      backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
+      box-shadow:4px 0 18px rgba(0,0,0,.25);
+      display:flex;flex-direction:column
+    }
+    .sidebar-title{
+      color:#fff;text-align:center;font-size:24px;font-weight:700;margin-bottom:30px;
+      text-shadow:0 2px 4px rgba(0,0,0,.3)
+    }
+    .nav-list{list-style:none}
+    .nav-link{
+      position:relative;display:block;padding:14px 26px;
+      color:#fff;font-weight:600;text-decoration:none;font-size:16px;
+      overflow:hidden;transition:.3s
+    }
+    .nav-link::before{
+      content:'';position:absolute;left:0;top:0;width:4px;height:100%;
+      background:#fff;transform:scaleY(0);transform-origin:top;transition:.3s
+    }
+    .nav-link:hover,
+    .nav-link.active{background:rgba(255,255,255,.18)}
+    .nav-link:hover::before,
+    .nav-link.active::before{transform:scaleY(1)}
+
+    /* ============ MAIN CONTENT ============ */
+    .content{margin-left:250px;padding:40px 50px 60px;height:100%;overflow:auto;color:#fff}
+    .dashboard-title{font-size:38px;margin-bottom:6px}
+    .welcome-msg{margin-bottom:40px;font-size:17px;opacity:.85}
+
+    .stats{display:flex;gap:30px;flex-wrap:wrap}
+    .card{
+      flex:1 1 220px;padding:28px;border-radius:16px;text-align:center;
+      background:var(--glass-bg);backdrop-filter:blur(var(--blur));
+      box-shadow:0 6px 20px rgba(0,0,0,.35);
+      transform:translateY(60px) scale(.9);opacity:0;
+      transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .7s
+    }
+    .card.show{transform:translateY(0) scale(1);opacity:1}
+    .card:hover{transform:translateY(-4px) scale(1.03) rotateX(4deg)}
+
+    /* ============ SCROLL BAR (optional) ============ */
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:4px}
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND ===== -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="1.mp4" type="video/mp4" />
+    <!-- Fallback text -->
+    Your browser does not support the video tag.
+  </video>
+  <div id="overlay"></div>
+  <div class="watermark">StudyBuddy Admin</div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar">
+    <h2 class="sidebar-title">Admin Panel</h2>
+    <ul class="nav-list">
+      <li><a href="admin_dashboard.html"           class="nav-link active">Dashboard</a></li>
+      <li><a href="admin_courses.html"             class="nav-link">Manage Courses</a></li>
+      <li><a href="admin_stationary.html"          class="nav-link">Manage Stationary</a></li>
+      <li><a href="admin_notices.html"             class="nav-link">Notices</a></li>
+      <li><a href="admin_upload_content.html"      class="nav-link">Upload Content</a></li>
+      <li><a href="manage_students.html"           class="nav-link">Student Details</a></li>
+      <li><a href="admin_mcq.html"                 class="nav-link">Exam</a></li>
+      <li><a href="index.html"                     class="nav-link">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="content">
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+    <p class="welcome-msg">Welcome, Admin.</p>
+
+    <div class="stats">
+      <div class="card"><p>Registered Students</p></div>
+      <div class="card"><p>Active Courses</p></div>
+      <div class="card"><p>PDFs Uploaded</p></div>
+      <div class="card"><p>Stationary Items</p></div>
+    </div>
+  </div>
+
+  <!-- ===== JS: Entrance animation ===== -->
+  <script>
+    /* fade-up cards one-by-one */
+    document.querySelectorAll('.card').forEach((c,i)=>
+      setTimeout(()=>c.classList.add('show'), i*150+300));
+  </script>
+</body>
+</html>

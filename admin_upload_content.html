@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload Content</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --glass: rgba(255, 255, 255, 0.1);
+      --blur: 15px;
+      --mint: mediumseagreen;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;   
+      color: white;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -3;
+    }
+
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+      z-index: -2;
+    }
+
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-20deg);
+      font-size: 10vw;
+      font-weight: bold;
+      color: rgba(255,255,255,0.05);
+      z-index: -1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      padding-top: 50px;
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 4px 0 18px rgba(0,0,0,.25);
+    }
+
+    .sidebar h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      display: block;
+      padding: 14px 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: 0.3s;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background-color: rgba(255,255,255,0.15);
+      border-left: 4px solid white;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 40px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    h1, h2 {
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .upload-section, .content-list {
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    input, select {
+      color: #333;
+    }
+
+    button {
+      background-color: var(--mint);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #28b066;
+    }
+
+    .content-box {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 16px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .delete-btn {
+      background-color: crimson;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .delete-btn:hover { background-color: darkred; }
+
+    .update-btn {
+      background-color: dodgerblue;
+      margin-left: 10px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .update-btn:hover { background-color: #006dcc; }
+
+    #editFormContainer {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 30%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      color: #000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="1.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+  <div class="watermark">StudyBuddy Admin</div>
+
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul class="nav-links">
+      <li><a href="admin_dashboard.html"           class="nav-link active">Dashboard</a></li>
+      <li><a href="admin_courses.html"             class="nav-link">Manage Courses</a></li>
+      <li><a href="admin_stationary.html"          class="nav-link">Manage Stationary</a></li>
+      <li><a href="admin_notices.html"             class="nav-link">Notices</a></li>
+      <li><a href="admin_upload_content.html"      class="nav-link">Upload Content</a></li>
+      <li><a href="manage_students.html"           class="nav-link">Student Details</a></li>
+      <li><a href="admin_mcq.html"                 class="nav-link">Exam</a></li>
+      <li><a href="index.html"                     class="nav-link">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <h1>Upload Learning Content</h1>
+
+    <div class="upload-section">
+      <h2>Upload New Material</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <label>Title:</label>
+        <input type="text" name="title" placeholder="Text" required />
+        <label for="courseDropdown">Select Course:</label>
+        <select name="course" id="courseDropdown" required>
+          <option value="" disabled selected>Select a course</option>
+        </select>
+        <label>Upload File:</label>
+        <input type="file" name="content_file" required />
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+
+    <div class="content-list">
+      <h2>Uploaded Contents</h2>
+      <div id="content-list"></div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editFormContainer">
+    <h3>Edit Content</h3>
+    <form id="editForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="edit-id" />
+      <label>Title</label>
+      <input type="text" name="title" id="edit-title" required />
+      <label>Course</label>
+      <input type="text" name="course" id="edit-course" required />
+      <label>New File (optional)</label>
+      <input type="file" name="content_file" />
+      <br />
+      <button type="submit">Save</button>
+      <button type="button" onclick="document.getElementById('editFormContainer').style.display='none'">Cancel</button>
+    </form>
+  </div>
+
+  <script>
+    const courseDropdown = document.getElementById('courseDropdown');
+    const contentList = document.getElementById('content-list');
+    const uploadForm = document.getElementById('uploadForm');
+    const editForm = document.getElementById('editForm');
+
+    fetch('http://localhost:3000/get-courses')
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(course => {
+          const option = document.createElement('option');
+          option.value = course.course_code || course.id;
+          option.textContent = course.course_name;
+          courseDropdown.appendChild(option);
+        });
+      });
+
+    uploadForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(uploadForm);
+      fetch('http://localhost:3000/upload-content', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        uploadForm.reset();
+        courseDropdown.selectedIndex = 0;
+        loadContents();
+      });
+    });
+
+    function loadContents() {
+      fetch('http://localhost:3000/get-contents')
+        .then(res => res.json())
+        .then(data => {
+          contentList.innerHTML = '';
+          if (data.length === 0) {
+            contentList.innerHTML = '<p>No content uploaded yet.</p>';
+            return;
+          }
+          data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'content-box';
+            div.innerHTML = `
+              <p><strong>Title:</strong> ${item.title}</p>
+              <p><strong>Course:</strong> ${item.course}</p>
+              <p><strong>File:</strong> ${item.filename}</p>
+              <button class="delete-btn" onclick="deleteContent(${item.id})">Delete</button>
+              <button class="update-btn" onclick="openEditForm(${item.id}, '${item.title.replace(/'/g, "\\'")}', '${item.course.replace(/'/g, "\\'")}')">Update</button>
+            `;
+            contentList.appendChild(div);
+          });
+        });
+    }
+
+    function deleteContent(id) {
+      if (!confirm('Are you sure you want to delete this content?')) return;
+      fetch(`http://localhost:3000/delete-content/${id}`, {
+        method: 'DELETE'
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        loadContents();
+      });
+    }
+
+    function openEditForm(id, title, course) {
+      document.getElementById('edit-id').value = id;
+      document.getElementById('edit-title').value = title;
+      document.getElementById('edit-course').value = course;
+      document.getElementById('editFormContainer').style.display = 'block';
+    }
+
+    editForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(editForm);
+      fetch('http://localhost:3000/update-full-content', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        editForm.reset();
+        document.getElementById('editFormContainer').style.display = 'none';
+        loadContents();
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', loadContents);
+  </script>
+</body>
+</html>

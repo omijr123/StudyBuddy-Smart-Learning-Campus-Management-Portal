@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage Courses</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============ ROOT & RESET (matches dashboard) ============ */
+    :root{
+      --mint:#2ecc71;
+      --glass-bg:rgba(255,255,255,.14);
+      --blur:16px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Poppins',Arial,sans-serif;overflow:hidden;color:#fff}
+
+    /* ============ BACKGROUND VIDEO & OVERLAY ============ */
+    #bg-video{
+      position:fixed;top:0;left:0;width:100vw;height:100vh;
+      object-fit:cover;z-index:-3
+    }
+    #overlay{
+      position:fixed;inset:0;
+      background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(0,0,0,.3));z-index:-2
+    }
+
+    /* ============ WATERMARK ============ */
+    .watermark{
+      position:fixed;top:50%;left:50%;
+      transform:translate(-50%,-50%) rotate(-20deg);
+      font-size:11vw;font-weight:900;letter-spacing:4px;
+      color:rgba(255,255,255,.05);pointer-events:none;user-select:none;z-index:-1
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar{
+      height:100%;width:250px;position:fixed;top:0;left:0;padding-top:50px;
+      background:var(--glass-bg);
+      backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
+      box-shadow:4px 0 18px rgba(0,0,0,.25);
+      display:flex;flex-direction:column
+    }
+    .sidebar-title{
+      color:#fff;text-align:center;font-size:24px;font-weight:700;margin-bottom:30px;
+      text-shadow:0 2px 4px rgba(0,0,0,.3)
+    }
+    .nav-list{list-style:none}
+    .nav-link{
+      position:relative;display:block;padding:14px 26px;font-weight:600;
+      color:#fff;text-decoration:none;font-size:16px;transition:.3s;overflow:hidden
+    }
+    .nav-link::before{
+      content:'';position:absolute;left:0;top:0;width:4px;height:100%;
+      background:#fff;transform:scaleY(0);transform-origin:top;transition:.3s
+    }
+    .nav-link:hover,
+    .nav-link.active{background:rgba(255,255,255,.18)}
+    .nav-link:hover::before,
+    .nav-link.active::before{transform:scaleY(1)}
+
+    /* ============ MAIN CONTENT ============ */
+    .content{margin-left:250px;padding:40px 50px 60px;height:100%;overflow:auto}
+    h1{font-size:34px;margin-bottom:25px}
+
+    /* glassy section boxes */
+    .section{
+      background:var(--glass-bg);
+      backdrop-filter:blur(var(--blur));
+      padding:24px;border-radius:16px;margin-bottom:40px;
+      box-shadow:0 6px 20px rgba(0,0,0,.35);
+      animation:fadeUp .7s ease-out;
+    }
+    .section h2{margin-top:0;color:var(--mint);}
+
+    /* form elements */
+    form{display:flex;flex-direction:column;gap:12px;max-width:420px}
+    input{
+      padding:12px;border:none;border-radius:8px;
+      font-size:15px;color:#222;
+    }
+    button{
+      padding:12px;background:var(--mint);color:#fff;font-weight:600;
+      border:none;border-radius:8px;cursor:pointer;transition:.3s
+    }
+    button:hover{background:#28b066}
+
+    /* table */
+    table{width:100%;border-collapse:collapse;margin-top:20px;color:#fff}
+    th,td{padding:14px;border:1px solid rgba(255,255,255,.15)}
+    th{background:rgba(255,255,255,.18)}
+    tr:nth-child(even){background:rgba(255,255,255,.08)}
+
+    .action-btn{
+      margin-right:6px;padding:6px 12px;font-size:12px;font-weight:600;
+      border:none;border-radius:4px;cursor:pointer;color:#fff;transition:.3s
+    }
+    .update-btn{background:darkorange}.update-btn:hover{background:orange}
+    .delete-btn{background:crimson}.delete-btn:hover{background:red}
+
+    /* card / section entrance */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:none}}
+
+    /* scrollbar */
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:4px}
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND ===== -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="1.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+  <div class="watermark">StudyBuddy Admin</div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar">
+    <h2 class="sidebar-title">Admin Panel</h2>
+     <ul class="nav-list">
+      <li><a href="admin_dashboard.html"           class="nav-link active">Dashboard</a></li>
+      <li><a href="admin_courses.html"             class="nav-link">Manage Courses</a></li>
+      <li><a href="admin_stationary.html"          class="nav-link">Manage Stationary</a></li>
+      <li><a href="admin_notices.html"             class="nav-link">Notices</a></li>
+      <li><a href="admin_upload_content.html"      class="nav-link">Upload Content</a></li>
+      <li><a href="manage_students.html"           class="nav-link">Student Details</a></li>
+      <li><a href="admin_mcq.html"                 class="nav-link">Exam</a></li>
+      <li><a href="index.html"                     class="nav-link">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="content">
+
+    <h1>Manage Courses</h1>
+
+    <!-- Add Course -->
+    <div class="section">
+      <h2>Add Course</h2>
+      <form id="addCourseForm">
+        <input type="text"   name="course_name" placeholder="Course Name"   required>
+        <input type="text"   name="course_code" placeholder="Course Code"   required>
+        <input type="number" name="duration"    placeholder="Duration (weeks)" required>
+        <input type="number" name="balance"     placeholder="Balance" step="0.01" min="0" required>
+        <button type="submit">Add Course</button>
+      </form>
+    </div>
+
+    <!-- All Courses -->
+    <div class="section">
+      <h2>All Courses</h2>
+      <table id="coursesTable">
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Course Code</th>
+            <th>Duration</th>
+            <th>Balance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ===== JS (same logic) ===== -->
+  <script>
+    const apiBase = 'http://localhost:3000';
+    const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function loadCourses(){
+      fetch(apiBase+'/get-courses')
+        .then(r=>r.json())
+        .then(data=>{
+          const tbody=document.querySelector('#coursesTable tbody');
+          tbody.innerHTML='';
+          data.forEach(({course_name,course_code,duration,balance})=>{
+            const tr=document.createElement('tr');
+            tr.innerHTML=`
+              <td>${esc(course_name)}</td>
+              <td>${esc(course_code)}</td>
+              <td>${duration}</td>
+              <td>${parseFloat(balance).toFixed(2)}</td>
+              <td>
+                <button class="action-btn update-btn" onclick="updateCourse('${esc(course_code)}')">Update</button>
+                <button class="action-btn delete-btn" onclick="deleteCourse('${esc(course_code)}')">Delete</button>
+              </td>`;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(err=>console.error('Load error:',err));
+    }
+
+    document.getElementById('addCourseForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const body=new URLSearchParams(new FormData(e.target)).toString();
+      fetch(apiBase+'/add-course',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body})
+        .then(r=>r.text()).then(alert).then(loadCourses);
+    });
+
+    function updateCourse(code){
+      const newName=prompt('New name:'); if(!newName)return;
+      const newDur =prompt('New duration (weeks):'); if(!newDur)return;
+      const newBal =prompt('New balance:'); if(!newBal)return;
+      const body=new URLSearchParams({
+        old_course_code:code,new_course_name:newName,
+        new_duration:newDur,new_balance:newBal
+      }).toString();
+      fetch(apiBase+'/update-course',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body})
+        .then(r=>r.text()).then(alert).then(loadCourses);
+    }
+
+    function deleteCourse(code){
+      if(!confirm('Delete '+code+'?'))return;
+      fetch(apiBase+'/delete-course',{
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:new URLSearchParams({delete_course_code:code}).toString()
+      }).then(r=>r.text()).then(alert).then(loadCourses);
+    }
+
+    loadCourses();
+  </script>
+</body>
+</html>

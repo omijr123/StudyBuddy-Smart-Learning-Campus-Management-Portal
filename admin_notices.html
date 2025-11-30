@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage Notices</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mint: #2ecc71;
+      --glass-bg: rgba(255,255,255,.14); 
+      --blur: 16px;
+    }
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html,body {
+      font-family: 'Poppins', sans-serif;
+      height: 100%;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Background video + overlay */
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: -3;
+    }
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.6), rgba(0,0,0,.3));
+      z-index: -2;
+    }
+
+    .watermark {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) rotate(-20deg);
+      font-size: 10vw;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      user-select: none;
+      z-index: -1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 50px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 4px 0 18px rgba(0,0,0,.25);
+    }
+
+    .sidebar h2 {
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
+      text-shadow: 0 1px 3px rgba(0,0,0,.4);
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 14px 26px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: rgba(255,255,255,.18);
+      border-left-color: white;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 40px 50px 60px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 25px;
+    }
+
+    .section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: var(--mint);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 500px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #222;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: var(--mint);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #28b066;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: rgba(255,255,255,0.18);
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .action-btn {
+      margin-right: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .update-btn {
+      background-color: darkorange;
+    }
+    .update-btn:hover {
+      background-color: orange;
+    }
+
+    .delete-btn {
+      background-color: crimson;
+    }
+    .delete-btn:hover {
+      background-color: red;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="1.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+  <div class="watermark">StudyBuddy Admin</div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul class="nav-list">
+      <li><a href="admin_dashboard.html"           class="nav-link active">Dashboard</a></li>
+      <li><a href="admin_courses.html"             class="nav-link">Manage Courses</a></li>
+      <li><a href="admin_stationary.html"          class="nav-link">Manage Stationary</a></li>
+      <li><a href="admin_notices.html"             class="nav-link">Notices</a></li>
+      <li><a href="admin_upload_content.html"      class="nav-link">Upload Content</a></li>
+      <li><a href="manage_students.html"           class="nav-link">Student Details</a></li>
+      <li><a href="admin_mcq.html"                 class="nav-link">Exam</a></li>
+      <li><a href="index.html"                     class="nav-link">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>Manage Notices</h1>
+
+    <div class="section">
+      <h2>Post New Notice</h2>
+      <form id="postNoticeForm">
+        <input type="text" name="title" placeholder="Notice Title" required />
+        <textarea name="details" placeholder="Notice Details" required></textarea>
+        <button type="submit">Post Notice</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h2>All Notices</h2>
+      <table id="noticesTable">
+        <thead>
+          <tr><th>Title</th><th>Details</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const apiBase = 'http://localhost:3000';
+
+    function loadNotices() {
+      fetch(`${apiBase}/get-notices`)
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector("#noticesTable tbody");
+          tbody.innerHTML = "";
+          data.forEach(({title, details}) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${title}</td>
+              <td>${details}</td>
+              <td>
+                <button class="action-btn update-btn" onclick="updateNotice('${escapeJS(title)}', \`${escapeJS(details)}\`)">Update</button>
+                <button class="action-btn delete-btn" onclick="deleteNotice('${escapeJS(title)}')">Delete</button>
+              </td>`;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(err => {
+          console.error("Error loading notices:", err);
+          alert("Failed to load notices");
+        });
+    }
+
+    function escapeJS(str) {
+      if (!str) return "";
+      return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/`/g, "\\`").replace(/"/g, '\\"');
+    }
+
+    document.getElementById("postNoticeForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new URLSearchParams(new FormData(form));
+
+      fetch(`${apiBase}/post-notice`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: formData.toString()
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        form.reset();
+        loadNotices();
+      })
+      .catch(err => alert("Error posting notice: " + err));
+    });
+
+    function updateNotice(title, oldDetails) {
+      const newDetails = prompt(`Edit details for "${title}":`, oldDetails);
+      if (newDetails === null) return;
+
+      fetch(`${apiBase}/update-notice`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({
+          titleToUpdate: title,
+          updatedDetails: newDetails
+        })
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        loadNotices();
+      })
+      .catch(err => alert("Error updating notice: " + err));
+    }
+
+    function deleteNotice(title) {
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+      fetch(`${apiBase}/delete-notice`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({ titleToDelete: title })
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        loadNotices();
+      })
+      .catch(err => alert("Error deleting notice: " + err));
+    }
+
+    loadNotices();
+  </script>
+</body>
+</html>

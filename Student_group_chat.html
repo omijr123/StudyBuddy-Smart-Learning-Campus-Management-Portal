@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Study Group Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Socket‑io & Emoji Picker -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js" type="module"></script>
+
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --primary: #3f51b5;
+      --bubble-bg: #e3f2fd;
+      --me-bubble: #d1c4e9;
+      --reply-bar: #34B7F1; 
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:var(--bg)}
+    .sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:mediumslateblue;display:flex;flex-direction:column;padding-top:20px}
+    .profile-box{display:flex;align-items:center;color:#fff;padding:15px 20px;cursor:pointer}
+    .profile-img{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-right:10px}
+    .sidebar-title{color:#fff;text-align:center;font-size:22px;font-weight:700;margin:15px 0}
+    .nav-list{list-style:none}
+    .nav-link{display:block;padding:12px 20px;color:#fff;text-decoration:none;font-size:16px;border-left:4px solid transparent;transition:.3s}
+    .nav-link:hover,.nav-link.active{background:mediumpurple;border-left-color:#fff}
+    .container{margin-left:230px;height:100vh;display:flex;flex-direction:column;padding:20px 40px;position:relative}
+    h2{text-align:center;color:var(--primary);margin-bottom:10px}
+    #chat{flex:1;overflow-y:auto;background:#fff;padding:10px;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,.1)}
+    .message{margin:10px 0;padding:10px;border-radius:10px;background:var(--bubble-bg);position:relative;max-width:80%}
+    .message.me{background:var(--me-bubble);margin-left:auto}
+    .message img{max-width:200px;margin-top:5px;border-radius:5px}
+    .meta{font-size:12px;color:gray;margin-top:5px}
+    .highlight{animation:pulse 1.2s ease-out 0s 2 alternate}
+    @keyframes pulse{from{box-shadow:0 0 0 3px #34B7F155}to{box-shadow:0 0 0 3px #34B7F1AA}}
+    .reply-block{padding:4px 8px;margin:-4px -4px 6px;border-left:4px solid var(--reply-bar);border-radius:6px;font-size:13px;cursor:pointer}
+    .message .reply-block{background:rgba(52,183,241,.12)}
+    .message.me .reply-block{border-left-color:#5eba7d;background:rgba(255,255,255,.35)}
+    .reply-block b{color:#075E54}
+    .actions{display:none;position:absolute;top:4px;right:6px;gap:6px}
+    .message:hover .actions{display:flex}
+    .action-btn{background:none;border:none;font-size:14px;cursor:pointer;opacity:.8}
+    .action-btn:hover{opacity:1}
+    #replyStrip{display:none;align-items:center;gap:8px;padding:6px 10px;background:#edf2ff;border-left:3px solid var(--primary);border-radius:6px;margin-top:6px;font-size:14px}
+    #replyStrip span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    #closeReply{cursor:pointer;font-weight:bold}
+    form{display:flex;gap:10px;margin-top:10px;align-items:center}
+    input[type=text]{flex:1;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px}
+    input[type=file]{flex-shrink:1}
+    button{background:var(--primary);color:#fff;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
+    #emojiContainer{position:absolute;right:60px;bottom:70px;z-index:100;display:none;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    emoji-picker{width:300px;max-width:100%}
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="profile-box" onclick="location='student_profile.html'">
+      <img id="profileImage" src="profile.jpg" class="profile-img">
+      <div class="profile-info"><strong id="studentName"></strong><span id="studentID"></span></div>
+    </div>
+    <h2 class="sidebar-title">Student Panel</h2>
+   <ul class="nav-list">
+      
+      <li><a href="student_dashboard.html"       class="nav-link active">Dashboard</a></li>
+      <li><a href="student_courses.html"         class="nav-link">My Courses</a></li>
+      <li><a href="student_course_contents.html" class="nav-link">Course Contents</a></li>
+      <li><a href="student_stationary.html"      class="nav-link">Stationary Shop</a></li>
+      <li><a href="student_group_chat.html"      class="nav-link">Group Chat</a></li>
+      <li><a href="student_notices.html"         class="nav-link">Notices</a></li>
+      <li><a href="student_stationary_purchase.html" class="nav-link">Purchased Items</a></li>
+      <li><a href="student_exam.html"            class="nav-link">Give Exam</a></li>
+      <li><a href="media.html"                   class="nav-link">Anonymous Wall</a></li>
+      <li><a href="student_login.html"           class="nav-link" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <h2>📚 Study Group Chat</h2>
+    <div id="chat"></div>
+    <div id="replyStrip"><strong>↩︎</strong><span id="replyPreview"></span><span id="closeReply">✕</span></div>
+    <form id="sendForm">
+      <input id="message" type="text" placeholder="Type a message…" required>
+      <input id="file" type="file" accept="image/*">
+      <button id="toggleEmoji" type="button" title="Insert emoji">😊</button>
+      <button type="submit">Send</button>
+    </form>
+    <div id="emojiContainer"><emoji-picker id="picker"></emoji-picker></div>
+  </div>
+
+  <script>
+    const student = JSON.parse(localStorage.getItem('student'));
+    if (!student) { location='student_login.html'; throw new Error('Not logged in'); }
+    const student_id = +student.id;
+    const student_name = student.name;
+    document.getElementById('studentName').textContent = student_name;
+    document.getElementById('studentID').textContent = 'ID: '+student_id;
+    document.getElementById('profileImage').src = student.profile_image?.trim()
+      ? (student.profile_image.startsWith('uploads/') ? 'http://localhost:3000/'+student.profile_image : student.profile_image)
+      : 'profile.jpg';
+    function logout(){ localStorage.removeItem('student'); location='student_login.html'; }
+
+    const chat = document.getElementById('chat');
+    const form = document.getElementById('sendForm');
+    const msgInp = document.getElementById('message');
+    const fileIn = document.getElementById('file');
+    const emojiBtn = document.getElementById('toggleEmoji');
+    const emojiBox = document.getElementById('emojiContainer');
+    const picker = document.getElementById('picker');
+    const replyStrip = document.getElementById('replyStrip');
+    const replyPreview = document.getElementById('replyPreview');
+    document.getElementById('closeReply').onclick = ()=>{ replyStrip.style.display='none'; replyTo=null; };
+    let replyTo = null;
+    const socket = io('http://localhost:3000');
+
+    emojiBtn.onclick = ()=>{ emojiBox.style.display = (emojiBox.style.display==='block')?'none':'block'; };
+    document.addEventListener('click',e=>{ if(!emojiBox.contains(e.target)&&e.target!==emojiBtn) emojiBox.style.display='none'; });
+    picker.addEventListener('emoji-click',e=>{ msgInp.value+=e.detail.unicode; msgInp.focus(); });
+
+    const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
+
+    function render(m){
+      const div = document.createElement('div');
+      div.className = 'message'+(m.student_id===student_id?' me':'');
+      div.dataset.id = m.id;
+      let quote = '';
+      if(m.reply_to){
+        quote = `<div class='reply-block' data-replyid='${m.reply_to}'><b>${esc(m.reply_name||'')}</b><br>${esc(m.reply_text||'[deleted]')}</div>`;
+      }
+      div.innerHTML = m.is_deleted
+        ? `<i>Message deleted by ${esc(m.deleted_by || 'admin')}</i>`
+        : `${quote}<b>${esc(m.name)}</b>: ${esc(m.message)}${m.edited ? ' <small>(edited)</small>' : ''}
+           ${m.file_url ? `<br><img src='http://localhost:3000/${m.file_url}'>` : ''}
+           <div class='meta'>${new Date(m.timestamp).toLocaleString()}</div>
+           <div class='actions'>
+             <button class='action-btn reply'>↩︎</button>
+             ${m.student_id === student_id ? '<button class="action-btn del">🗑</button>' : ''}
+           </div>`;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    fetch('http://localhost:3000/messages')
+      .then(r => r.json())
+      .then(arr => { chat.innerHTML = ''; arr.forEach(render); })
+      .catch(err => { chat.innerHTML = '<i>Error loading messages</i>'; console.error(err); });
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('student_id', student_id);
+      fd.append('message', msgInp.value);
+      if (fileIn.files[0]) fd.append('file', fileIn.files[0]);
+      if (replyTo) fd.append('reply_to', replyTo.id);
+      try {
+        const res = await fetch('http://localhost:3000/send', { method: 'POST', body: fd });
+        if (!res.ok) throw new Error(await res.text());
+        msgInp.value = ''; fileIn.value = ''; replyStrip.style.display = 'none'; replyTo = null;
+      } catch (err) {
+        alert('Send failed: ' + err.message);
+      }
+    };
+
+    chat.addEventListener('click', async e => {
+      const btn = e.target.closest('.action-btn');
+      if (!btn) return;
+      const bubble = btn.closest('.message');
+      const id = bubble.dataset.id;
+
+      if (btn.classList.contains('reply')) {
+        const name = bubble.querySelector('b')?.textContent;
+        const mainTextNode = Array.from(bubble.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
+        const text = mainTextNode ? mainTextNode.textContent.trim() : '[media]';
+        replyTo = { id, text, name };
+        replyPreview.textContent = `${name}: ${text}`.slice(0, 100);
+        replyStrip.style.display = 'flex';
+      }
+
+      if (btn.classList.contains('del')) {
+        if (!confirm('Delete this message?')) return;
+        await fetch('http://localhost:3000/delete-message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, deleted_by: student_name })
+        }).catch(console.error);
+      }
+    });
+
+    chat.addEventListener('click', e => {
+      const rb = e.target.closest('.reply-block');
+      if (!rb) return;
+      const targetId = rb.getAttribute('data-replyid');
+      if (!targetId) return;
+      const target = chat.querySelector(`.message[data-id="${targetId}"]`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.add('highlight');
+        setTimeout(() => target.classList.remove('highlight'), 1200);
+      }
+    });
+
+    socket.on('newMessage', render);
+
+    socket.on('editMessage', ({ id, message }) => {
+      const b = document.querySelector(`.message[data-id="${id}"]`);
+      if (b && !b.innerHTML.startsWith('<i>')) {
+        const mainTextNode = Array.from(b.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
+        if (mainTextNode) mainTextNode.textContent = ' ' + message;
+        if (!b.querySelector('small')) b.querySelector('b').insertAdjacentHTML('afterend', ' <small>(edited)</small>');
+      }
+    });
+
+    socket.on('deleteMessage', ({ id, deleted_by }) => {
+      const b = document.querySelector(`.message[data-id="${id}"]`);
+      if (b) b.innerHTML = `<i>Message deleted by ${esc(deleted_by || 'admin')}</i>`;
+    });
+  </script>
+</body>
+</html>

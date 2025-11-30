@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyBuddy – Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ————— GLOBAL RESET ————— */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#7b68ee;
+      --primary-dark:#5d50c9;
+      --glass-bg:rgba(255,255,255,.14); 
+      --blur:16px;
+    }
+    html,body{height:100%;font-family:'Poppins',Arial,sans-serif;overflow:hidden;color:#222}
+
+    /* ————— BACKGROUND VIDEO & OVERLAY ————— */
+    #bg-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-3}
+    #bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.55),rgba(0,0,0,.25));z-index:-2}
+
+    /* ————— WATERMARK ————— */
+    .watermark{
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);
+      font-size:11vw;font-weight:900;letter-spacing:4px;
+      color:rgba(255,255,255,.05);pointer-events:none;user-select:none;z-index:-1
+    }
+
+    /* ————— SIDEBAR ————— */
+    .sidebar{
+      height:100%;width:250px;position:fixed;top:0;left:0;padding-top:20px;
+      background:var(--glass-bg);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
+      box-shadow:4px 0 18px rgba(0,0,0,.25);display:flex;flex-direction:column
+    }
+    .profile-box{display:flex;align-items:center;color:#fff;padding:18px 22px;cursor:pointer;transition:.3s}
+    .profile-box:hover{background:rgba(255,255,255,.12)}
+    .profile-img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-right:12px}
+    .sidebar-title{color:#fff;text-align:center;margin:16px 0;font-size:22px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+
+    .nav-list{list-style:none;margin-top:8px}
+    .nav-link{
+      display:block;padding:14px 26px;font-size:16px;font-weight:600;color:#fff;text-decoration:none;
+      transition:.25s;border-left:4px solid transparent
+    }
+    .nav-link:hover{background:rgba(255,255,255,.15);border-left-color:#ffd700}
+    .nav-link.active{background:rgba(255,255,255,.25);border-left-color:#fff}
+
+    /* ————— MAIN CONTENT ————— */
+    .content{margin-left:250px;height:100%;padding:40px 50px 60px;overflow:auto}
+    .balance-box{
+      position:absolute;top:40px;right:60px;padding:12px 24px;border-radius:14px;
+      background:var(--glass-bg);backdrop-filter:blur(var(--blur));color:#0b9444;font-weight:700;
+      box-shadow:0 2px 8px rgba(0,0,0,.25)
+    }
+    .dashboard-title{color:#fff;font-size:32px;margin-bottom:6px;text-shadow:0 2px 6px rgba(0,0,0,.4)}
+    #welcomeText{color:#eee;margin-bottom:36px}
+
+    /* ——— stats cards ——— */
+    .stats{display:flex;gap:30px;flex-wrap:wrap}
+    .card{
+      flex:1 1 240px;padding:28px;border-radius:16px;text-align:center;color:#fff;
+      background:var(--glass-bg);backdrop-filter:blur(var(--blur));
+      box-shadow:0 6px 18px rgba(0,0,0,.3);transform:translateY(40px);opacity:0;
+      transition:transform .6s ease,opacity .6s ease
+    }
+    .card p{font-size:18px;font-weight:600}
+    /* card entrance */
+    .card.show{transform:translateY(0);opacity:1}
+    .card:hover{transform:translateY(-4px) scale(1.03)}
+
+    /* ————— NOTIFICATION ————— */
+    #notif-wrapper{position:fixed;top:28px;right:300px;z-index:1000}
+    #bell{
+      font-size:26px;background:none;border:none;cursor:pointer;color:#fff;position:relative;transition:transform .3s
+    }
+    #bell:hover{transform:scale(1.1)}
+    #badge{
+      position:absolute;top:-10px;right:-10px;background:red;color:#fff;border-radius:50%;padding:2px 6px;
+      font-size:12px;font-weight:700;display:none
+    }
+    #notif-box{
+      display:none;position:absolute;right:0;margin-top:10px;width:320px;max-height:420px;overflow-y:auto;
+      background:var(--glass-bg);backdrop-filter:blur(var(--blur));color:#fff;
+      border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.35)
+    }
+    #notif-box p{margin:0;padding:10px 14px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.15)}
+    #notif-box p.unseen{background:rgba(255,255,255,.16);cursor:pointer}
+    #notif-box p.seen{background:rgba(255,255,255,.05);color:#ddd}
+
+    /* ——— Scrollbar styling (WebKit) ——— */
+    #notif-box::-webkit-scrollbar{width:6px}
+    #notif-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:3px}
+
+    /* ————— Fade-up animation keyframes ————— */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body>
+
+  <!-- Background video + overlay -->
+  <video id="bg-video" src="st.mp4" autoplay muted loop playsinline></video>
+  <div id="bg-overlay"></div>
+  <div class="watermark">StudyBuddy</div>
+
+  <!-- ——— SIDEBAR ——— -->
+  <div class="sidebar">
+    <div class="profile-box" onclick="location='student_profile.html'">
+      <img src="profile.jpg" alt="Profile" class="profile-img" id="profileImage">
+      <div>
+        <strong id="studentName">John Doe</strong><br>
+        <span id="studentID">ID: STU12345</span>
+      </div>
+    </div>
+
+    <h2 class="sidebar-title">Student Panel</h2>
+
+    <ul class="nav-list">
+      
+      <li><a href="student_dashboard.html"       class="nav-link active">Dashboard</a></li>
+      <li><a href="student_courses.html"         class="nav-link">My Courses</a></li>
+      <li><a href="student_course_contents.html" class="nav-link">Course Contents</a></li>
+      <li><a href="student_stationary.html"      class="nav-link">Stationary Shop</a></li>
+      <li><a href="student_group_chat.html"      class="nav-link">Group Chat</a></li>
+      <li><a href="student_notices.html"         class="nav-link">Notices</a></li>
+      <li><a href="student_stationary_purchase.html" class="nav-link">Purchased Items</a></li>
+      <li><a href="student_exam.html"            class="nav-link">Give Exam</a></li>
+      <li><a href="media.html"                   class="nav-link">Anonymous Wall</a></li>
+      <li><a href="student_login.html"           class="nav-link" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- ——— MAIN CONTENT ——— -->
+  <div class="content">
+    <div class="balance-box" id="studentBalance">Balance: 0 Tk</div>
+
+    <h1 class="dashboard-title">Student Dashboard</h1>
+    <p id="welcomeText">Welcome back!</p>
+
+    <div class="stats">
+      <div class="card"><p>Enrolled Courses</p></div>
+      <div class="card"><p>Completed Lessons</p></div>
+      <div class="card"><p>Pending Assignments</p></div>
+      <div class="card"><p>Purchased Stationary Items</p></div>
+    </div>
+  </div>
+
+  <!-- ——— NOTIFICATION COMPONENT ——— -->
+  <div id="notif-wrapper">
+    <button id="bell">🔔<span id="badge">0</span></button>
+    <div id="notif-box"></div>
+  </div>
+
+  <!-- ——— DASHBOARD SCRIPTS ——— -->
+  <script>
+    /* ----- USER SESSION ----- */
+    const student = JSON.parse(localStorage.getItem('student'));
+    if(!student){
+      alert("You must log in first.");location='student_login.html';
+    }else{
+      studentName.textContent = student.name;
+      studentID.textContent   = "ID: "+student.id;
+      studentBalance.textContent = "Balance: "+student.balance+" Tk";
+      welcomeText.textContent = `Welcome back, ${student.name}!`;
+      profileImage.src = student.profile_image?.startsWith('uploads/')
+        ? 'http://localhost:3000/'+student.profile_image
+        : (student.profile_image||'profile.jpg');
+    }
+    function logout(){localStorage.removeItem('student');location='student_login.html';}
+
+    /* ----- NOTIFICATION LOGIC ----- */
+    const bell  = document.getElementById('bell');
+    const badge = document.getElementById('badge');
+    const box   = document.getElementById('notif-box');
+    const sid   = student.id;
+
+    async function fetchNotifs(){
+      const res  = await fetch(`http://localhost:3000/notifications?student_id=${sid}`);
+      const data = await res.json();
+      const unseen = data.filter(n=>!n.seen);
+      badge.textContent = unseen.length;
+      badge.style.display = unseen.length ? 'inline' : 'none';
+
+      box.innerHTML = data.map(n=>`
+        <p class="${n.seen?'seen':'unseen'}" data-id="${n.id}">
+          ${n.message}<br><small>${new Date(n.created_at).toLocaleString()}</small>
+        </p>`).join('');
+    }
+    bell.onclick = ()=>{box.style.display = box.style.display==='block' ? 'none' : 'block'; if(box.style.display==='block') fetchNotifs();};
+    box.addEventListener('click',async e=>{
+      const p=e.target.closest('p[data-id]');if(!p||p.classList.contains('seen'))return;
+      await fetch('http://localhost:3000/mark-notification',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({notification_id:p.dataset.id})});
+      p.classList.replace('unseen','seen');fetchNotifs();
+    });
+    fetchNotifs();setInterval(fetchNotifs,30000);
+
+    /* ----- Card entrance animation ----- */
+    document.querySelectorAll('.card').forEach((card,i)=>setTimeout(()=>card.classList.add('show'),150*i+300));
+  </script>
+</body>
+</html>

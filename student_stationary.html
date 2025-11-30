@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stationary Shop - Student</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f0ff;
+      color: #333;
+    }
+
+    video#bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-style: italic;
+      z-index: 5;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 230px;
+      position: fixed;
+      top: 0; left: 0;
+      background: rgba(123,104,238,0.15);
+      backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+    }
+
+    .profile-box {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    .profile-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      margin-right: 10px;
+    }
+
+    .profile-info strong { font-size: 16px; display: block; }
+    .profile-info span { font-size: 13px; }
+
+    .sidebar-title {
+      color: white;
+      text-align: center;
+      margin: 15px 0 25px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-list { list-style: none; padding: 0; margin: 0; }
+    .nav-link {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.3s;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255,255,255,0.15);
+      border-left-color: white;
+    }
+
+    .content {
+      margin-left: 230px;
+      padding: 40px;
+    }
+
+    .balance-box {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      color: #d4f9d4;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .card {
+      background-color: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      width: 220px;
+      padding: 15px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .item-name { font-weight: bold; font-size: 18px; margin-bottom: 8px; }
+    .item-price { font-size: 16px; margin-bottom: 5px; }
+    .item-quantity, .item-availability { font-size: 14px; margin-bottom: 8px; }
+    .item-availability.out-of-stock { color: red; }
+
+    .btn-buy {
+      background-color: #7b68ee;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-buy:hover:not(:disabled) {
+      background-color: #957be0;
+    }
+
+    .btn-buy:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <video id="bg-video" src="st.mp4" autoplay muted loop playsinline></video>
+  <div class="watermark">StudyBuddy™ Platform</div>
+
+  <div class="sidebar">
+    <div class="profile-box" onclick="window.location.href='student_profile.html'">
+      <img src="profile.jpg" alt="Profile" class="profile-img" id="profileImage" />
+      <div class="profile-info">
+        <strong id="studentName">Student</strong>
+        <span id="studentID">ID: STU000</span>
+      </div>
+    </div>
+
+    <h2 class="sidebar-title">Student Panel</h2>
+    <ul class="nav-list">
+      <li><a href="student_dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="student_courses.html" class="nav-link">My Courses</a></li>
+      <li><a href="student_course_contents.html" class="nav-link">Course Contents</a></li>
+      <li><a href="student_stationary.html" class="nav-link active">Stationary Shop</a></li>
+      <li><a href="student_group_chat.html" class="nav-link">Group Chat</a></li>
+      <li><a href="student_notices.html" class="nav-link">Notices</a></li>
+      <li><a href="student_stationary_purchase.html" class="nav-link">Purchased Items</a></li>
+      <li><a href="student_exam.html" class="nav-link">Give Exam</a></li>
+      <li><a href="media.html" class="nav-link">Anonymous Wall</a></li>
+      <li><a href="student_login.html" class="nav-link" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div class="balance-box" id="studentBalance">Balance: $0</div>
+    <h1>Stationary Shop</h1>
+    <p style="color:white">Browse and purchase stationary items:</p>
+    <div class="cards-container" id="cards-container">
+      <p style="color:white">Loading items...</p>
+    </div>
+  </div>
+
+  <script>
+    const student = JSON.parse(localStorage.getItem('student'));
+    if (!student) {
+      alert("You must log in first.");
+      window.location.href = 'student_login.html';
+    } else {
+      document.getElementById('studentName').textContent = student.name;
+      document.getElementById('studentID').textContent = "ID: " + student.id;
+      document.getElementById('studentBalance').textContent = "Balance: $" + student.balance;
+      const profilePath = student.profile_image || 'profile.jpg';
+      document.getElementById('profileImage').src = profilePath.startsWith('uploads/') ? 'http://localhost:3000/' + profilePath : profilePath;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch('http://localhost:3000/get-stationary')
+        .then(res => res.json())
+        .then(items => {
+          const container = document.getElementById('cards-container');
+          container.innerHTML = '';
+
+          items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const isOutOfStock = item.quantity <= 0;
+            card.innerHTML = `
+              <img src="data:image/jpeg;base64,${item.image_base64}" alt="${item.item_name}" />
+              <div class="item-name">${item.item_name}</div>
+              <div class="item-price">Price: $${parseFloat(item.price).toFixed(2)}</div>
+              <div class="item-quantity">Quantity: ${item.quantity} pcs</div>
+              <div class="item-availability ${isOutOfStock ? 'out-of-stock' : ''}">
+                ${isOutOfStock ? 'Out of Stock' : 'In Stock'}
+              </div>
+              <button class="btn-buy" ${isOutOfStock ? 'disabled' : ''}>Add to Cart</button>
+            `;
+            const buyBtn = card.querySelector('.btn-buy');
+            buyBtn.addEventListener('click', () => {
+              fetch('http://localhost:3000/buy-stationary', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ student_id: student.id, item_id: item.id })
+              })
+              .then(res => res.json())
+              .then(data => {
+                alert(data.message || 'Purchase complete!');
+                if (data.success) {
+                  student.balance = data.updatedBalance;
+                  localStorage.setItem('student', JSON.stringify(student));
+                  location.reload();
+                }
+              })
+              .catch(err => {
+                console.error('Purchase error:', err);
+                alert('Could not complete the purchase.');
+              });
+            });
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error('Fetch error:', err);
+          document.getElementById('cards-container').innerHTML = '<p>Failed to load items.</p>';
+        });
+    });
+
+    function logout() {
+      localStorage.removeItem('student');
+      window.location.href = 'student_login.html';
+    }
+  </script>
+</body>
+</html>

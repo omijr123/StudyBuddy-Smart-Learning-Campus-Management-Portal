@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: mediumslateblue;
+      --glass-bg: rgba(255, 255, 255, 0.2);
+      --blur: 20px;
+    }
+
+    * {
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('1.mp4') no-repeat center center/cover;
+      background-color: #f0f0ff;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+      z-index: -2;
+    }
+
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-20deg);
+      font-size: 10vw;
+      font-weight: 700;
+      color: rgba(255,255,255,0.05);
+      z-index: -1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      animation: fadeIn 1s ease;
+    }
+
+    form {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      color: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 25px;
+    }
+
+    label {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      display: block;
+      color: #f0f0f0;
+    }
+
+    input[type="file"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+      background-color: rgba(255,255,255,0.9);
+    }
+
+    input[type="number"] {
+      background-color: rgba(255,255,255,0.9);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: slateblue;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay"></div>
+  <div class="watermark">StudyBuddy</div>
+
+  <div class="container">
+    <form id="profileForm" enctype="multipart/form-data">
+      <h2>Update Profile</h2>
+      <input type="hidden" name="id" id="studentId">
+
+      <label for="profile_image">New Profile Picture:</label>
+      <input type="file" name="profile_image" id="profile_image" accept="image/*" />
+
+      <label for="balance">New Balance (৳):</label>
+      <input type="number" name="balance" id="balance" required />
+
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+
+  <script>
+    const student = JSON.parse(localStorage.getItem('student'));
+
+    if (!student) {
+      alert("You must log in.");
+      window.location.href = 'student_login.html';
+    } else {
+      document.getElementById('studentId').value = student.id;
+      document.getElementById('balance').value = student.balance;
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      try {
+        const response = await fetch('http://localhost:3000/update-profile', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.updatedStudent) {
+          localStorage.setItem('student', JSON.stringify(result.updatedStudent));
+          alert('Profile updated successfully!');
+          window.location.href = 'student_dashboard.html';
+        } else {
+          alert(result.message || 'Something went wrong.');
+        }
+
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('Error updating profile.');
+      }
+    });
+  </script>
+</body>
+</html>

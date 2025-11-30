@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin MCQ Manager</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to bottom right, #f0f9ff, #e0f7fa);
+      padding: 30px;
+      margin: 0;
+      color: #222; 
+    }
+
+    h2, h3 {
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f4f9ff;
+    }
+
+    .action-btn {
+      padding: 5px 12px;
+      margin: 2px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .back-btn {
+      background-color: #6c757d;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn:hover {
+      background-color: #5a6268;
+    }
+
+    @media (max-width: 600px) {
+      input, select, textarea, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+  <script>
+    let selectedCourseId = '';
+
+    window.onload = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/get-courses');
+        if (!res.ok) throw new Error("Failed to load courses");
+        const courses = await res.json();
+        const select = document.getElementById('course_id');
+
+        courses.forEach(course => {
+          const option = document.createElement('option');
+          option.value = course.id;
+          option.textContent = `${course.course_name} (${course.course_code})`;
+          select.appendChild(option);
+        });
+      } catch (err) {
+        alert("Error loading courses");
+        console.error(err);
+      }
+    };
+
+    async function loadQuestions() {
+      selectedCourseId = document.getElementById('course_id').value;
+      if (!selectedCourseId) return;
+
+      try {
+        const res = await fetch(`http://localhost:3000/questions/${selectedCourseId}`);
+        const questions = await res.json();
+        const table = document.getElementById('mcqTable');
+        table.innerHTML = `
+          <tr>
+            <th>ID</th><th>Question</th><th>Options</th><th>Correct</th><th>Action</th>
+          </tr>`;
+        questions.forEach(q => {
+          table.innerHTML += `
+            <tr>
+              <td>${q.id}</td>
+              <td>${q.question}</td>
+              <td>
+                A: ${q.option_a}<br/>
+                B: ${q.option_b}<br/>
+                C: ${q.option_c}<br/>
+                D: ${q.option_d}
+              </td>
+              <td>${q.correct_option}</td>
+              <td>
+                <button class="action-btn edit-btn" onclick='fillForm(${JSON.stringify(q)})'>Edit</button>
+                <button class="action-btn delete-btn" onclick='deleteQuestion(${q.id})'>Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        alert("Error loading questions");
+        console.error(err);
+      }
+    }
+
+    async function addOrUpdateQuestion() {
+      const form = document.getElementById('mcqForm');
+      const data = Object.fromEntries(new FormData(form));
+      if (!selectedCourseId) return alert("Please select a course first.");
+      data.course_id = selectedCourseId;
+
+      const route = data.id ? 'update-question' : 'add-question';
+
+      try {
+        const res = await fetch(`http://localhost:3000/${route}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          alert("✅ Question saved");
+          form.reset();
+          loadQuestions();
+        } else {
+          alert("❌ " + (result.message || result.error || 'Error occurred'));
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("❌ Failed to save question");
+      }
+    }
+
+    function fillForm(q) {
+      for (let key in q) {
+        if (document.getElementById(key)) {
+          document.getElementById(key).value = q[key];
+        }
+      }
+    }
+
+    async function deleteQuestion(id) {
+      if (!confirm("Are you sure you want to delete this question?")) return;
+      try {
+        const res = await fetch(`http://localhost:3000/delete-question/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        alert("✅ Deleted");
+        loadQuestions();
+      } catch (err) {
+        alert("❌ Failed to delete question");
+        console.error(err);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <button class="back-btn" onclick="location.href='admin_dashboard.html'">← Back to Dashboard</button>
+
+  <h2>📘 MCQ Manager (Admin)</h2>
+
+  <label for="course_id">Select Course</label>
+  <select id="course_id" name="course_id" onchange="loadQuestions()" required>
+    <option value="">-- Select a Course --</option>
+  </select>
+
+  <form id="mcqForm" onsubmit="event.preventDefault(); addOrUpdateQuestion()">
+    <input type="hidden" name="id" id="id" />
+
+    <label for="question">Question</label>
+    <textarea name="question" id="question" rows="3" placeholder="Write the question here..." required></textarea>
+
+    <label>Options</label>
+    <input type="text" name="option_a" id="option_a" placeholder="Option A" required />
+    <input type="text" name="option_b" id="option_b" placeholder="Option B" required />
+    <input type="text" name="option_c" id="option_c" placeholder="Option C" required />
+    <input type="text" name="option_d" id="option_d" placeholder="Option D" required />
+
+    <label for="correct_option">Correct Option</label>
+    <select name="correct_option" id="correct_option" required>
+      <option value="">Select</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+
+    <button type="submit">💾 Save Question</button>
+    <button type="reset">🧹 Clear</button>
+  </form>
+
+  <h3>📄 All MCQs for Course</h3>
+  <table id="mcqTable">
+    <tr><th>ID</th><th>Question</th><th>Options</th><th>Correct</th><th>Action</th></tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stationary Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mint: #2ecc71;
+      --glass-bg: rgba(255,255,255,0.14);
+      --blur: 16px; 
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Background video + overlay */
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -3;
+    }
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+      z-index: -2;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%) rotate(-20deg);
+      font-size: 10vw;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      user-select: none;
+      z-index: -1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 50px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: 4px 0 18px rgba(0,0,0,.25);
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-shadow: 0 1px 3px rgba(0,0,0,.4);
+    }
+    .nav-links {
+      list-style: none;
+      padding: 0;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 14px 26px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      border-left: 4px solid transparent;
+      transition: 0.3s;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background-color: rgba(255,255,255,.18);
+      border-left-color: white;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 40px 50px 60px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 25px;
+    }
+
+    /* Form & section styling */
+    .section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      color: #222;
+    }
+
+    button {
+      padding: 12px;
+      font-weight: 600;
+      background-color: var(--mint);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #28b066;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    th {
+      background: rgba(255,255,255,0.18);
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255,255,255,0.08);
+    }
+
+    img.thumb {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .update-btn {
+      background-color: darkorange;
+    }
+    .update-btn:hover {
+      background-color: orange;
+    }
+    .delete-btn {
+      background-color: crimson;
+    }
+    .delete-btn:hover {
+      background-color: red;
+    }
+
+    /* Modal */
+    #editFormContainer {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      color: #000;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      z-index: 999;
+      width: 400px;
+    }
+
+    ::-webkit-scrollbar { width: 8px }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px }
+  </style>
+</head>
+<body>
+
+  <!-- Background video -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="1.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+  <div class="watermark">StudyBuddy Admin</div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Admin Panel</h2>
+     <ul class="nav-links">
+      <li><a href="admin_dashboard.html"           class="nav-link active">Dashboard</a></li>
+      <li><a href="admin_courses.html"             class="nav-link">Manage Courses</a></li>
+      <li><a href="admin_stationary.html"          class="nav-link">Manage Stationary</a></li>
+      <li><a href="admin_notices.html"             class="nav-link">Notices</a></li>
+      <li><a href="admin_upload_content.html"      class="nav-link">Upload Content</a></li>
+      <li><a href="manage_students.html"           class="nav-link">Student Details</a></li>
+      <li><a href="admin_mcq.html"                 class="nav-link">Exam</a></li>
+      <li><a href="index.html"                     class="nav-link">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Stationary Management</h1>
+
+    <div class="section">
+      <form id="stationaryForm" enctype="multipart/form-data">
+        <div><label>Item Name</label><input type="text" name="item_name" required /></div>
+        <div><label>Quantity</label><input type="number" name="quantity" required /></div>
+        <div><label>Price</label><input type="number" name="price" required /></div>
+        <div><label>Upload Image</label><input type="file" name="image" accept="image/*" required /></div>
+        <button type="submit">Add Item</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h2>Stationary Items List</h2>
+      <table id="stationaryTable">
+        <thead>
+          <tr>
+            <th>Image</th><th>Item Name</th><th>Quantity</th><th>Price</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editFormContainer">
+    <h3>Edit Item</h3>
+    <form id="editForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="edit-id" />
+      <div><label>Item Name</label><input type="text" name="item_name" id="edit-item-name" required /></div>
+      <div><label>Quantity</label><input type="number" name="quantity" id="edit-quantity" required /></div>
+      <div><label>Price</label><input type="number" name="price" id="edit-price" required /></div>
+      <div><label>New Image (optional)</label><input type="file" name="image" /></div>
+      <button type="submit">Save Changes</button>
+      <button type="button" onclick="document.getElementById('editFormContainer').style.display='none'">Cancel</button>
+    </form>
+  </div>
+
+  <!-- JS -->
+  <script>
+    async function loadItems() {
+      try {
+        const res = await fetch('http://localhost:3000/get-stationary');
+        const items = await res.json();
+        const tbody = document.querySelector('#stationaryTable tbody');
+        tbody.innerHTML = '';
+        items.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><img src="data:image/jpeg;base64,${item.image_base64}" class="thumb" /></td>
+            <td>${item.item_name}</td>
+            <td>${item.quantity}</td>
+            <td>${item.price}</td>
+            <td>
+              <button class="update-btn" onclick="openEdit(${item.id}, '${item.item_name.replace(/'/g, "\\'")}', ${item.quantity}, ${item.price})">Update</button>
+              <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Error loading items:', err);
+      }
+    }
+
+    document.getElementById('stationaryForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      try {
+        const res = await fetch('http://localhost:3000/add-stationary', {
+          method: 'POST',
+          body: formData
+        });
+        const text = await res.text();
+        alert(text);
+        e.target.reset();
+        loadItems();
+      } catch (err) {
+        alert('Error adding item: ' + err.message);
+      }
+    });
+
+    async function deleteItem(id) {
+      if (!confirm('Are you sure?')) return;
+      try {
+        const res = await fetch(`http://localhost:3000/delete-stationary/${id}`, {
+          method: 'DELETE'
+        });
+        const text = await res.text();
+        alert(text);
+        loadItems();
+      } catch (err) {
+        alert('Delete failed: ' + err.message);
+      }
+    }
+
+    function openEdit(id, name, quantity, price) {
+      document.getElementById('edit-id').value = id;
+      document.getElementById('edit-item-name').value = name;
+      document.getElementById('edit-quantity').value = quantity;
+      document.getElementById('edit-price').value = price;
+      document.getElementById('editFormContainer').style.display = 'block';
+    }
+
+    document.getElementById('editForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      try {
+        const res = await fetch('http://localhost:3000/update-stationary', {
+          method: 'POST',
+          body: formData
+        });
+        const text = await res.text();
+        alert(text);
+        document.getElementById('editFormContainer').style.display = 'none';
+        loadItems();
+      } catch (err) {
+        alert('Update failed: ' + err.message);
+      }
+    });
+
+    window.onload = loadItems;
+  </script>
+</body>
+</html>

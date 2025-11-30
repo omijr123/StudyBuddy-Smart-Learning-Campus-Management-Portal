@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f6f9;
+    } 
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);   /* subtle shadow */
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    tr:hover { background: #f0f0f0; }            /* row highlight */
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    button {
+      padding: 6px 12px;
+      background: crimson;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover { background: darkred; }
+  </style>
+</head>
+<body>
+  <h2>📋 Student Management</h2>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Profile</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Balance</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    /* ---------- Fetch & render all students ---------- */
+    async function fetchStudents() {
+      try {
+        const res = await fetch('http://localhost:3000/admin/students');
+        const students = await res.json();
+
+        const tbody = document.querySelector('#studentTable tbody');
+        tbody.innerHTML = '';
+
+        students.forEach(s => {
+          const imgSrc = s.profile_image && s.profile_image.startsWith('uploads/')
+                        ? 'http://localhost:3000/' + s.profile_image
+                        : s.profile_image || 'profile.jpg';
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><img src="${imgSrc}" alt="${s.name}'s photo"></td>
+            <td>${s.name}</td>
+            <td>${s.email}</td>
+            <td>৳${parseFloat(s.balance).toFixed(2)}</td>
+            <td><button onclick="deleteStudent(${s.id})">Delete</button></td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Failed to fetch students:', err);
+        alert('Could not load students. Check console for details.');
+      }
+    }
+
+    /* ---------- Delete a student by ID ---------- */
+    async function deleteStudent(id) {
+      if (!confirm('Are you sure you want to delete this student?')) return;
+
+      const res = await fetch('http://localhost:3000/admin/delete-student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+
+      if (res.ok) {
+        alert('Student deleted successfully!');
+        fetchStudents();            // refresh list
+      } else {
+        alert('Failed to delete student.');
+        console.error(await res.text());
+      }
+    }
+
+    /* initial load */
+    fetchStudents();
+  </script>
+</body>
+</html>
