@@ -30,6 +30,21 @@
 - **Real-time Communication**: Group chat and notice board
 - **Modern UI/UX**: Video backgrounds and responsive design
 
+<h3>VS Code Workspace</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/hGvfgyPn/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/FHWHPyg9/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/vHXYBrK7/7.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+
 ## 🏗️ System Architecture
 
 <div align="center">
