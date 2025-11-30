@@ -29,6 +29,7 @@
 - **Campus E-commerce**: Integrated stationary store
 - **Real-time Communication**: Group chat and notice board
 - **Modern UI/UX**: Video backgrounds and responsive design
+- **Agile Development**: Collaborative workflow with Discord & Trello
 
 ## 🎬 Live Preview
 
@@ -36,7 +37,7 @@
 <div align="center">
   
 **Main Dashboard & User Interface**
-<img src="https://i.postimg.cc/mk46MKYZ/1.png" width="90%" style="border-radius: 10px; margin: 10px 0;">
+<img src="https://i.postimg.cc/mk46MKYZ/1.png" width="90%" style="border-radius: 10px; margin: 10px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 
 </div>
 
@@ -44,9 +45,9 @@
 <div align="center">
 
 **VS Code Workspace Setup**
-<img src="https://i.postimg.cc/htKsr9Q1/1.png" width="90%" style="border-radius: 10px; margin: 10px 0;">
-<img src="https://i.postimg.cc/J45cGGYy/5.png" width="90%" style="border-radius: 10px; margin: 10px 0;">
-<img src="https://i.postimg.cc/sXW5yXZd/6.png" width="90%" style="border-radius: 10px; margin: 10px 0;">
+<img src="https://i.postimg.cc/htKsr9Q1/1.png" width="90%" style="border-radius: 10px; margin: 10px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/J45cGGYy/5.png" width="90%" style="border-radius: 10px; margin: 10px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/sXW5yXZd/6.png" width="90%" style="border-radius: 10px; margin: 10px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 
 </div>
 
@@ -56,13 +57,13 @@
 <div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
 
 **Administrative Dashboard & Management Views**
-<img src="https://i.postimg.cc/BQ75xdsJ/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/Y97Qr7Nx/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/SRT9fzB6/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/dtfd7rmq/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/VNqbHTyc/8.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/4dwHX9Nq/9.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/1RCVTwd8/10.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
+<img src="https://i.postimg.cc/BQ75xdsJ/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/Y97Qr7Nx/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/SRT9fzB6/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/dtfd7rmq/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/VNqbHTyc/8.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/4dwHX9Nq/9.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/1RCVTwd8/10.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 
 </div>
 
@@ -70,17 +71,17 @@
 <div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
 
 **Student Dashboard & Learning Interface**
-<img src="https://i.postimg.cc/xdzPjgwj/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/mk8YpnH1/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/SQMGpmB2/1.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/dVqRdrLB/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/cJCQkW7M/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/QtWcsqyF/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/KjPL38FS/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/QxDcG1kr/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/XY7FXWzt/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/pdmFYZx5/8.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/FRckwHYY/10.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
+<img src="https://i.postimg.cc/xdzPjgwj/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/mk8YpnH1/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/SQMGpmB2/1.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/dVqRdrLB/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/cJCQkW7M/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/QtWcsqyF/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/KjPL38FS/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/QxDcG1kr/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/XY7FXWzt/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/pdmFYZx5/8.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/FRckwHYY/10.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 
 </div>
 
@@ -88,13 +89,39 @@
 <div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
 
 **MySQL Database Structure & Operations**
-<img src="https://i.postimg.cc/3RwbZzNB/1.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/3xFTf5rx/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/9fxjVdqv/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/qRSV6pwP/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/L6dFH6n4/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/HsQDjDy3/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
-<img src="https://i.postimg.cc/K8N6rPQk/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8;">
+<img src="https://i.postimg.cc/3RwbZzNB/1.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/3xFTf5rx/2.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/9fxjVdqv/3.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/qRSV6pwP/4.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/L6dFH6n4/5.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/HsQDjDy3/6.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/K8N6rPQk/7.png" style="border-radius: 8px; border: 2px solid #e1e4e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+</div>
+
+## 👥 Team Collaboration
+
+### 💬 Discord Team Communication
+<div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+
+**Real-time Team Coordination & Development Discussions**
+<img src="https://i.postimg.cc/P5Nvb4QG/1.png" style="border-radius: 8px; border: 2px solid #7289da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/25RjqFcD/2.png" style="border-radius: 8px; border: 2px solid #7289da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/brJqX6Js/3.png" style="border-radius: 8px; border: 2px solid #7289da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/FswNqVQV/4.png" style="border-radius: 8px; border: 2px solid #7289da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/MTZSRs11/5.png" style="border-radius: 8px; border: 2px solid #7289da; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+</div>
+
+### 📋 Trello Project Management
+<div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+
+**Agile Workflow & Task Management**
+<img src="https://i.postimg.cc/vm2srrXR/1.png" style="border-radius: 8px; border: 2px solid #0079bf; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/cLsyP9b4/2.png" style="border-radius: 8px; border: 2px solid #0079bf; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/3wcs4KJR/3.png" style="border-radius: 8px; border: 2px solid #0079bf; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/yNk5zwh5/4.png" style="border-radius: 8px; border: 2px solid #0079bf; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.postimg.cc/13YCMvxK/5.png" style="border-radius: 8px; border: 2px solid #0079bf; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 
 </div>
 
@@ -123,11 +150,16 @@ graph TB
     E[(📦 MySQL Database)] --> C
     E --> D
     
+    F[🎯 Agile Methodology] --> G[📋 Trello Boards]
+    F --> H[💬 Discord Team]
+    F --> I[🚀 Sprint Planning]
+    
     style A fill:#4CAF50,color:white
     style B fill:#2196F3,color:white
     style C fill:#FF9800,color:white
     style D fill:#F44336,color:white
     style E fill:#9C27B0,color:white
+    style F fill:#607D8B,color:white
 ```
 
 </div>
@@ -153,6 +185,14 @@ graph TB
 | Notice System | 📢 | Publish campus announcements | ✅ Implemented |
 | System Analytics | 📊 | Monitor platform performance | ✅ Implemented |
 
+### 🔧 Development Methodology
+| Aspect | Tool | Implementation |
+|--------|------|----------------|
+| Project Planning | 📋 Trello | Agile workflow with sprints |
+| Team Communication | 💬 Discord | Real-time coordination |
+| Version Control | 🔄 Git | Code collaboration |
+| Task Management | ✅ Checklists | Progress tracking |
+
 ## 🛠️ Technology Stack
 
 ### Frontend Layer
@@ -170,6 +210,12 @@ graph TB
 - **XAMPP** - Local development environment
 - **phpMyAdmin** - Database management
 - **VS Code** - Code editor
+- **Git** - Version control system
+
+### Collaboration Tools
+- **Discord** - Team communication & coordination
+- **Trello** - Agile project management
+- **Google Meet** - Virtual meetings & standups
 
 ## ⚡ Quick Installation
 
@@ -242,6 +288,10 @@ StudyBuddy/
 ├── 📂 Database/               # Data Management
 │   └── init.sql              # Database schema
 │
+├── 📂 documentation/          # Project Docs
+│   ├── 📋 trello-screenshots/ # Project management
+│   └── 💬 discord-screenshots/ # Team communication
+│
 ├── 🔑 login.html              # Authentication
 ├── 📝 register.html           # User registration
 ├── 🏠 index.html             # Landing page
@@ -303,6 +353,21 @@ $database = 'studybuddy';
 2. Configure database on your hosting provider
 3. Update database connection strings
 4. Set proper file permissions (755 for folders, 644 for files)
+
+## 👥 Development Methodology
+
+### Agile Workflow Implementation
+- **Sprint Planning**: Weekly task assignments and goals
+- **Daily Standups**: Team coordination via Discord
+- **Task Tracking**: Trello boards for progress monitoring
+- **Code Reviews**: Collaborative development approach
+- **Continuous Integration**: Regular testing and deployment
+
+### Team Collaboration Tools
+- **Discord Server**: Dedicated channels for development discussions
+- **Trello Boards**: Organized task management with deadlines
+- **Version Control**: Git for code collaboration and history
+- **Documentation**: Comprehensive README and inline comments
 
 ## 🤝 Contributing
 
@@ -366,6 +431,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Open Source Community** - For providing valuable tools and libraries
 - **Project Contributors** - For continuous improvements and feedback
 - **Testing Team** - For rigorous quality assurance and bug reporting
+- **Agile Methodology** - For efficient project management and collaboration
+- **Development Team** - For dedicated work using Discord & Trello
 
 ---
 
@@ -388,5 +455,9 @@ git clone <repository-url>
 **StudyBuddy** - *Smart Learning, Smarter Campus Management*
 
 *Empowering education through innovative technology solutions*
+
+<br>
+
+*Built with ❤️ using Agile Methodology & Team Collaboration*
 
 </div>
