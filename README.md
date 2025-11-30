@@ -32,45 +32,6 @@
 
 <hr>
 
-<h2>📱 Android App Preview</h2>
-
-<div align="center">
-
-<h3>App UI Interface</h3>
-
-<p align="center">
-  <img src="https://i.postimg.cc/3N9kqvYG/1.jpg" width="45%" style="max-height: 400px; object-fit: contain;">
-  <img src="https://i.postimg.cc/05ZrP71G/2.jpg" width="45%" style="max-height: 400px; object-fit: contain;">
-</p>
-
-
-
-<h3>Android Studio Workspace</h3>
-
-<p align="center">
-  <img src="https://i.postimg.cc/fTwhn4kS/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <img src="https://i.postimg.cc/W45Yq3vd/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <img src="https://i.postimg.cc/Z5My9tQF/5.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-<h3>Results Screen</h3>
-
-<p align="center">
-  <img src="https://i.postimg.cc/43cnmKt2/7.png" width="70%" style="max-height: 350px; object-fit: contain;">
-</p>
-
-</div>
-
-<hr>
-
-
-
 <h2>🌐 Web App Preview</h2>
 
 <div align="center">
@@ -78,16 +39,13 @@
 <h3>Web App UI Interface</h3>
 
 <p align="center">
-  <img src="https://i.postimg.cc/GpHZbYW7/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
+  <img src="https://i.postimg.cc/mk46MKYZ/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
 </p>
 
-<p align="center">
-  <img src="https://i.postimg.cc/mrz6v4MF/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
+<hr>
 
 
-
-<h3>VS Code Workspace</h3>
+<h1>VS Code Workspace</h1>
 
 <p align="center">
   <img src="https://i.postimg.cc/htKsr9Q1/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
