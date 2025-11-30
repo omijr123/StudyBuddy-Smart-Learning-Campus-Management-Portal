@@ -89,20 +89,32 @@
 </p>
 
 
-<h3> User Panel </h3>
+<h3> Student Panel </h3>
 
 <p align="center">
   <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/PrY9xTFZ/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/s2NwmNNs/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/xdzPjgwj/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
   
-  <img src="https://i.postimg.cc/fbzcZxkp/yy.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/V65X0m9y/jj.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/PrY9xTFZ/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/s2NwmNNs/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/mk8YpnH1/3.png" width="45%" style="max-height: 300px; object-fit: contain;">
   
-  <img src="https://i.postimg.cc/fbzcZxkp/yy.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/V65X0m9y/jj.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/SQMGpmB2/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/dVqRdrLB/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/cJCQkW7M/3.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/QtWcsqyF/4.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/KjPL38FS/5.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/QxDcG1kr/6.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
+  <img src="https://i.postimg.cc/XY7FXWzt/7.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/pdmFYZx5/8.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/FRckwHYY/10.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
 </p>
 
 
@@ -110,11 +122,20 @@
 
 <p align="center">
   <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/nzvyjx3h/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/C1H2MNK0/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/3RwbZzNB/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
   
-  <img src="https://i.postimg.cc/nzvyjx3h/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/C1H2MNK0/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/3xFTf5rx/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/9fxjVdqv/3.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/qRSV6pwP/4.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
+   <img src="https://i.postimg.cc/L6dFH6n4/5.png" width="45%" style="max-height: 300px; object-fit: contain;">
+   
+  <img src="https://i.postimg.cc/HsQDjDy3/6.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
+   <img src="https://i.postimg.cc/K8N6rPQk/7.png" width="45%" style="max-height: 300px; object-fit: contain;">
+   
 </p>
 
 
