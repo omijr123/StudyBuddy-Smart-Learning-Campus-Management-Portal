@@ -32,7 +32,7 @@
 
 <hr>
 
-<h2>🌐 Web App Preview</h2>
+<h1>🌐 Web App Preview</h1>
 
 <div align="center">
 
@@ -45,7 +45,7 @@
 <hr>
 
 
-<h1>VS Code Workspace</h1>
+<h3>VS Code Workspace</h3>
 
 <p align="center">
   <img src="https://i.postimg.cc/htKsr9Q1/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
@@ -59,48 +59,37 @@
   <img src="https://i.postimg.cc/sXW5yXZd/6.png" width="85%" style="max-height: 425px; object-fit: contain;">
 </p>
 
-
-
-
-<h3>Generated Results</h3>
-
-<p align="center">
-  <img src="https://i.postimg.cc/xC9MKy0T/9.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <img src="https://i.postimg.cc/YqvgfSwp/10.png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-</div>
-
 <hr>
 
 
-
-<h2>📂 Output Examples</h2>
+<h2>📂 Output Results </h2>
 
 <div align="center">
 
-<h3>Category 1: Realistic</h3>
+<h3> Admin Panel </h3>
 
 <p align="center">
   <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/RVj2Rq2n/1.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/5yDKnk7v/2.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/BQ75xdsJ/4.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/Y97Qr7Nx/5.png" width="45%" style="max-height: 300px; object-fit: contain;">
 
   
-  <img src="https://i.postimg.cc/FKrBqkvT/3.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/1RnYLQxS/4.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/SRT9fzB6/6.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/dtfd7rmq/7.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
+  <img src="https://i.postimg.cc/VNqbHTyc/8.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/4dwHX9Nq/9.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
+  
+  <img src="https://i.postimg.cc/1RCVTwd8/10.png" width="45%" style="max-height: 300px; object-fit: contain;">
+
 </p>
 
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/6p13prPB/1.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/8ctGnDQ1/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
 
-<h3>Category 2: Anime</h3>
+<h3> User Panel </h3>
 
 <p align="center">
   <strong>Images Output</strong><br><br>
@@ -109,68 +98,25 @@
   
   <img src="https://i.postimg.cc/fbzcZxkp/yy.png" width="45%" style="max-height: 300px; object-fit: contain;">
   <img src="https://i.postimg.cc/V65X0m9y/jj.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/PrY9xTFZ/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/s2NwmNNs/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/fbzcZxkp/yy.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/V65X0m9y/jj.png" width="45%" style="max-height: 300px; object-fit: contain;">
 </p>
 
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/rsnmR5p1/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/mDT2dmzj/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
 
-<h3>Category 3: Cinematic</h3>
+<h3> mysql work </h3>
 
 <p align="center">
   <strong>Images Output</strong><br><br>
   <img src="https://i.postimg.cc/nzvyjx3h/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
   <img src="https://i.postimg.cc/C1H2MNK0/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/nzvyjx3h/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/C1H2MNK0/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
 </p>
 
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/8PPCSXCV/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/NfzQwgVn/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
-
-<h3>Category 4: 3D Render</h3>
-
-<p align="center">
-  <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/X7G9Wvq9/1-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/6Q0vc2bN/2-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/T2SWtX0X/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/ZqT9WYb7/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
-
-<h3>Category 5: Oil Painting</h3>
-
-<p align="center">
-  <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/3RXbnBMz/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/wTf4fMPM/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/KcLZySbw/1-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/bw6PRqHX/2-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
-
-<h3>Category 6: Sketch</h3>
-
-<p align="center">
-  <strong>Images Output</strong><br><br>
-  <img src="https://i.postimg.cc/FsCdYXfG/1-(1).png" width="85%" style="max-height: 425px; object-fit: contain;">
-</p>
-
-<p align="center">
-  <strong>Videos Output</strong><br><br>
-  <img src="https://i.postimg.cc/wxbB9cRP/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
-  <img src="https://i.postimg.cc/gJ2YWnzP/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
-</p>
 
 </div>
 
