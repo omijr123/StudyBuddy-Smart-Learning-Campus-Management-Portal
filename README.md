@@ -30,19 +30,193 @@
 - **Real-time Communication**: Group chat and notice board
 - **Modern UI/UX**: Video backgrounds and responsive design
 
+<hr>
+
+<h2>📱 Android App Preview</h2>
+
+<div align="center">
+
+<h3>App UI Interface</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/3N9kqvYG/1.jpg" width="45%" style="max-height: 400px; object-fit: contain;">
+  <img src="https://i.postimg.cc/05ZrP71G/2.jpg" width="45%" style="max-height: 400px; object-fit: contain;">
+</p>
+
+
+
+<h3>Android Studio Workspace</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/fTwhn4kS/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/W45Yq3vd/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/Z5My9tQF/5.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<h3>Results Screen</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/43cnmKt2/7.png" width="70%" style="max-height: 350px; object-fit: contain;">
+</p>
+
+</div>
+
+<hr>
+
+
+
+<h2>🌐 Web App Preview</h2>
+
+<div align="center">
+
+<h3>Web App UI Interface</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/GpHZbYW7/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/mrz6v4MF/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+
+
 <h3>VS Code Workspace</h3>
 
 <p align="center">
-  <img src="https://i.postimg.cc/hGvfgyPn/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
+  <img src="https://i.postimg.cc/htKsr9Q1/1.png" width="85%" style="max-height: 425px; object-fit: contain;">
 </p>
 
 <p align="center">
-  <img src="https://i.postimg.cc/FHWHPyg9/2.png" width="85%" style="max-height: 425px; object-fit: contain;">
+  <img src="https://i.postimg.cc/J45cGGYy/5.png" width="85%" style="max-height: 425px; object-fit: contain;">
 </p>
 
 <p align="center">
-  <img src="https://i.postimg.cc/vHXYBrK7/7.png" width="85%" style="max-height: 425px; object-fit: contain;">
+  <img src="https://i.postimg.cc/sXW5yXZd/6.png" width="85%" style="max-height: 425px; object-fit: contain;">
 </p>
+
+
+
+
+<h3>Generated Results</h3>
+
+<p align="center">
+  <img src="https://i.postimg.cc/xC9MKy0T/9.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <img src="https://i.postimg.cc/YqvgfSwp/10.png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+</div>
+
+<hr>
+
+
+
+<h2>📂 Output Examples</h2>
+
+<div align="center">
+
+<h3>Category 1: Realistic</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/RVj2Rq2n/1.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/5yDKnk7v/2.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
+
+  
+  <img src="https://i.postimg.cc/FKrBqkvT/3.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/1RnYLQxS/4.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/6p13prPB/1.jpg" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/8ctGnDQ1/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<h3>Category 2: Anime</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/PrY9xTFZ/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/s2NwmNNs/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  
+  <img src="https://i.postimg.cc/fbzcZxkp/yy.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/V65X0m9y/jj.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/rsnmR5p1/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/mDT2dmzj/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<h3>Category 3: Cinematic</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/nzvyjx3h/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/C1H2MNK0/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/8PPCSXCV/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/NfzQwgVn/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<h3>Category 4: 3D Render</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/X7G9Wvq9/1-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/6Q0vc2bN/2-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/T2SWtX0X/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/ZqT9WYb7/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<h3>Category 5: Oil Painting</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/3RXbnBMz/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/wTf4fMPM/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/KcLZySbw/1-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/bw6PRqHX/2-(1).png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+<h3>Category 6: Sketch</h3>
+
+<p align="center">
+  <strong>Images Output</strong><br><br>
+  <img src="https://i.postimg.cc/FsCdYXfG/1-(1).png" width="85%" style="max-height: 425px; object-fit: contain;">
+</p>
+
+<p align="center">
+  <strong>Videos Output</strong><br><br>
+  <img src="https://i.postimg.cc/wxbB9cRP/1.png" width="45%" style="max-height: 300px; object-fit: contain;">
+  <img src="https://i.postimg.cc/gJ2YWnzP/2.png" width="45%" style="max-height: 300px; object-fit: contain;">
+</p>
+
+</div>
+
+<hr>
 
 
 ## 🏗️ System Architecture
