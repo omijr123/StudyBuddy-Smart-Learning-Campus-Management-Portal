@@ -456,8 +456,4 @@ git clone <repository-url>
 
 *Empowering education through innovative technology solutions*
 
-<br>
-
-*Built with ❤️ using Agile Methodology & Team Collaboration*
-
 </div>
