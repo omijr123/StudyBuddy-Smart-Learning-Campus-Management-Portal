@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Project StudyBuddy](https://img.shields.io/badge/Project-StudyBuddy-blue)
-![Type LMS Portal](https://img.shields.io/badge/Type-LMS%20Portal-brightgreen)
+![Type LMS Portal](https://img.shields.io/badge/Type-LMS%20Portal-brightgreen) 
 ![Frontend Tech](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JS-yellow)
 ![Backend Tech](https://img.shields.io/badge/Backend-PHP%20%7C%20MySQL-orange)
 ![Platform Web](https://img.shields.io/badge/Platform-Web-lightgrey)
